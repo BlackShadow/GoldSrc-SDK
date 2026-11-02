@@ -1,0 +1,4 @@
+LIBRARY particleman
+EXPORTS
+    ?SUB_CallUseToggle@CBaseEntity@@QAEXXZ @1
+    CreateInterface @2

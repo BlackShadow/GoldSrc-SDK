@@ -1,0 +1,278 @@
+#include "VGUI_TextImage.h"
+
+#include "VGUI_App.h"
+#include "VGUI_Font.h"
+#include "VGUI_Scheme.h"
+
+#include <new>
+#include <string.h>
+
+namespace vgui
+{
+
+TextImage::TextImage( int textBufferLen, const char* text )
+	: Image()
+{
+	init( textBufferLen, text );
+}
+
+TextImage::TextImage( const char* text )
+	: Image()
+{
+	init( (int)strlen( text ) + 1, text );
+}
+
+Font* TextImage::getFont()
+{
+	if ( _font != NULL )
+		return _font;
+
+	return App::getInstance()->getScheme()->getFont( _schemeFont );
+}
+
+void TextImage::getTextSize( int& wide, int& tall )
+{
+	wide = 0;
+	tall = 0;
+	if ( _text != NULL )
+	{
+		Font* font = getFont();
+		if ( font != NULL )
+			font->getTextSize( _text, wide, tall );
+	}
+}
+
+void TextImage::getTextSizeWrapped( int& wide, int& tall )
+{
+	wide = 0;
+	tall = 0;
+	if ( _text == NULL )
+		return;
+
+	int availableWide;
+	int ignoredTall;
+	getSize( availableWide, ignoredTall );
+	Font* font = getFont();
+	int lineTall = font->getTall();
+	int x = 0;
+	int index = 0;
+	signed char ch = (signed char)_text[0];
+	int a;
+	int b;
+	int c;
+	font->getCharABCwide( ch, a, b, c );
+	int wordWide = c + a + b;
+	if ( ch == 0 )
+		return;
+
+	int y = lineTall;
+	do
+	{
+		if ( ch != '\r' )
+		{
+			if ( ch == '\n' )
+			{
+				x = 0;
+				y += lineTall;
+			}
+			else if ( ch == ' ' )
+			{
+				signed char next = (signed char)_text[index + 1];
+				font->getCharABCwide( ' ', a, b, c );
+				if ( next != 0 && next != '\n' && next != '\r' )
+				{
+					x += c + b + a;
+					if ( x > availableWide )
+					{
+						x = 0;
+						y += lineTall;
+					}
+				}
+			}
+			else
+			{
+				int length = 1;
+				for ( signed char next = (signed char)_text[index + length];
+					next != 0 && next != '\n' && next != '\r' && next != ' ';
+					next = (signed char)_text[index + ( ++length )] )
+				{
+					int aa;
+					int bb;
+					int cc;
+					font->getCharABCwide( next, aa, bb, cc );
+					wordWide += cc + bb + aa;
+				}
+
+				if ( x + wordWide > availableWide )
+				{
+					x = 0;
+					y += lineTall;
+				}
+
+				for ( int j = 0; j < length; ++j )
+				{
+					font->getCharABCwide( (signed char)_text[index + j], a, b, c );
+					int nextX = x + c + b + a;
+					if ( nextX > wide )
+						wide = nextX;
+					if ( y > tall )
+						tall = y;
+					x = nextX;
+				}
+				index += length - 1;
+			}
+		}
+		ch = (signed char)_text[++index];
+		font->getCharABCwide( ch, a, b, c );
+		wordWide = c + a + b;
+	}
+	while ( ch != 0 );
+}
+
+void TextImage::paint( Panel* )
+{
+	int availableWide;
+	int ignoredTall;
+	getSize( availableWide, ignoredTall );
+	if ( _text == NULL )
+		return;
+
+	Color color;
+	getColor( color );
+	int red;
+	int green;
+	int blue;
+	int alpha;
+	color.getColor( red, green, blue, alpha );
+	drawSetTextColor( red, green, blue, alpha );
+	Font* font = getFont();
+	drawSetTextFont( font );
+	int lineTall = font->getTall();
+	int x = 0;
+	int y = 0;
+	int index = 0;
+	signed char ch = (signed char)_text[0];
+	int a;
+	int b;
+	int c;
+	font->getCharABCwide( ch, a, b, c );
+	int wordWide = c + a + b;
+	if ( ch == 0 )
+		return;
+
+	do
+	{
+		if ( ch != '\r' )
+		{
+			if ( ch == '\n' )
+			{
+				x = 0;
+				y += lineTall;
+			}
+			else if ( ch == ' ' )
+			{
+				signed char next = (signed char)_text[index + 1];
+				font->getCharABCwide( ' ', a, b, c );
+				if ( next != 0 && next != '\n' && next != '\r' )
+				{
+					x += c + b + a;
+					if ( x > availableWide )
+					{
+						x = 0;
+						y += lineTall;
+					}
+				}
+			}
+			else
+			{
+				int length = 1;
+				for ( signed char next = (signed char)_text[index + length];
+					next != 0 && next != '\n' && next != '\r' && next != ' ';
+					next = (signed char)_text[index + ( ++length )] )
+				{
+					int aa;
+					int bb;
+					int cc;
+					font->getCharABCwide( next, aa, bb, cc );
+					wordWide += cc + bb + aa;
+				}
+
+				if ( x + wordWide > availableWide )
+				{
+					x = 0;
+					y += lineTall;
+				}
+
+				for ( int j = 0; j < length; ++j )
+				{
+					ch = (signed char)_text[index + j];
+					font->getCharABCwide( ch, a, b, c );
+					drawPrintChar( x, y, ch );
+					x += c + b + a;
+				}
+				index += length - 1;
+			}
+		}
+		ch = (signed char)_text[++index];
+		font->getCharABCwide( ch, a, b, c );
+		wordWide = c + a + b;
+	}
+	while ( ch != 0 );
+}
+
+void TextImage::setFont( Scheme::SchemeFont schemeFont )
+{
+	_schemeFont = schemeFont;
+}
+
+void TextImage::setFont( Font* font )
+{
+	_font = font;
+}
+
+void TextImage::setSize( int wide, int tall )
+{
+	Image::setSize( wide, tall );
+}
+
+void TextImage::setText( int textBufferLen, const char* text )
+{
+	if ( textBufferLen > _textBufferLen )
+	{
+		::operator delete( _text );
+		_textBufferLen = textBufferLen;
+		_text = new char[textBufferLen];
+		if ( _text == NULL )
+			_textBufferLen = 0;
+	}
+
+	if ( _text != NULL )
+		vgui_strcpy( _text, _textBufferLen, text );
+
+	int wide;
+	int tall;
+	getTextSize( wide, tall );
+	Image::setSize( wide, tall );
+}
+
+void TextImage::setText( const char* text )
+{
+	setText( (int)( strlen( text ) + 1 ), text );
+}
+
+void TextImage::init( int, const char* text )
+{
+	int wide;
+	int tall;
+
+	_schemeFont = Scheme::SchemeFont::sf_primary1;
+	_text = NULL;
+	_font = NULL;
+	_textBufferLen = 0;
+	setText( text );
+
+	getTextSize( wide, tall );
+	setSize( wide, tall );
+}
+
+}

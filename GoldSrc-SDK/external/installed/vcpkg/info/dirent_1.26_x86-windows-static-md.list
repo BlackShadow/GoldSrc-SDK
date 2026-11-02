@@ -1,0 +1,9 @@
+x86-windows-static-md/
+x86-windows-static-md/include/
+x86-windows-static-md/include/dirent.h
+x86-windows-static-md/share/
+x86-windows-static-md/share/dirent/
+x86-windows-static-md/share/dirent/copyright
+x86-windows-static-md/share/dirent/vcpkg-spdx-resources.json
+x86-windows-static-md/share/dirent/vcpkg.spdx.json
+x86-windows-static-md/share/dirent/vcpkg_abi_info.txt

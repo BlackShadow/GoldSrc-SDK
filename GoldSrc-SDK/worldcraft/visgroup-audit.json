@@ -1,0 +1,170 @@
+{
+  "recorded_utc": "2026-10-25T18:18:24.651725+00:00",
+  "status": "Verified VisGroup and object-selector checkpoint; full restoration remains active.",
+  "reference": {
+    "path": "D:/SteamLibrary/steamapps/common/Half-Life SDK/Hammer Editor/hammer.exe",
+    "sha256": "ceef56a702c28eaade3c4b2d24722fe161ccff5a36580852a57e2c03dd3c90f3",
+    "database": "bin/obj/hammer/native-reference/hammer.native.i64",
+    "method": "Fresh native IDA bodies, raw disassembly and offline PE type table; exact frozen evidence in bin/obj/hammer/tool-parity."
+  },
+  "fixed": [
+    "VisGroup icon clicks stage list state only. Apply commits changed states, refreshes visibility and removes hidden selection; unchanged Apply does not refresh.",
+    "Restored original Apply/Edit/Mark/Purge controls and removed Source Show All override and registered immediate-toggle messages.",
+    "Mark uses the current visibility predicate and selection mode. List refresh discards pending icon changes.",
+    "Explicit Purge tests stored group membership, including child assignments overridden by parent membership; it removes map/list entries without destroying retained group objects.",
+    "Removed Source automatic purge calls on deletion and hide commands, plus unused document purge methods.",
+    "World visibility flags are separate from the Hide Items menu state. Changed Apply uses native mask one and clears active item filtering while leaving that menu checked.",
+    "Objects combo uses the original fixed unsorted dropdown list, preserving block/wedge/cylinder/spike/arch order and existing class/prefab choices.",
+    "Multiple selections show all three native property pages. Removed the Source previous-type loop and its Debug uninitialized read; Entity/Flags saves skip non-game-class objects through their existing guards."
+  ],
+  "native_quirks_preserved": [
+    "Apply, Edit and Purge handlers do not set the document modified flag.",
+    "Unchanged Apply retains cached visibility and selection, even if external code made them stale.",
+    "Purged registry groups can remain referenced by detached undo objects; Purge does not free them.",
+    "Changed Apply resets the active visibility mask independently of the Hide Items menu toggle."
+  ],
+  "source_adapters": [
+    "The source document maintains visible flags/culling and selection through UpdateVisibilityAll rather than the native fixed-size world visible-object cache.",
+    "The existing document visibility predicate is now public for Mark; a nonvirtual accessor exposes stored rather than inherited VisGroup membership for Purge.",
+    "World visibility flags preserve the observed Hide Items/Apply state split. Existing cordon/view-specific culling remains an adapter requiring broader comparison.",
+    "The native bar also compares two otherwise unused 16-byte filter records. The source bar has no corresponding controls or mutation path; none were invented."
+  ],
+  "verification": {
+    "builds": "Final Win32 Release and Debug complete project graphs passed with RunCodeAnalysis=true. Existing warnings remain.",
+    "runtime": "Both full editor harnesses exited zero, including case 64 for staged clicks with legacy-message draining, changed/unchanged Apply, Hide Items menu interaction, fresh-predicate Mark, selection modes, explicit Purge, refresh discard and retained history pointers.",
+    "resources": "Raw compiled resource comparison includes dialogs 140 and 162, all previously restored property pages, menus, accelerators, toolbar and Help links.",
+    "selector": "Runtime checks confirm the fixed combo style and exact five primitive names/order/item data, alongside class and prefab placement workflows.",
+    "logs": [
+      "bin/obj/hammer/visgroup-release.log",
+      "bin/obj/hammer/visgroup-release-checks.log",
+      "bin/obj/hammer/visgroup-debug.log",
+      "bin/obj/hammer/visgroup-debug-checks.log"
+    ],
+    "evidence": [
+      "bin/obj/hammer/tool-parity/native-visgroups-contract.json",
+      "bin/obj/hammer/tool-parity/native-visgroups-implementation.json",
+      "bin/obj/hammer/tool-parity/object-selector-style-audit.json"
+    ]
+  },
+  "remaining": [
+    "Cordon/view-specific visibility interactions, movement/history edge cases and all nested prefab/group paths need broader native comparisons.",
+    "Dynamic SmartEdit controls, remaining dialogs and MFC printing templates still need audit. The next cleanup should remove the proven latent Source Find/Replace handler/dialog314 while retaining native Replace Textures dialog217.",
+    "VisGroup drag/drop paths were compared statically; exhaustive interactive timing, renderer pixels and modal workflows remain unproven.",
+    "Dormant Source classes, compatibility APIs and excluded legacy source files remain in the tree.",
+    "Existing compiler and Code Analysis warnings remain."
+  ],
+  "custom_behavior_preserved": "RMFs open without WADs and missing textures render white.",
+  "files": [
+    {
+      "path": "worldcraft/filtercontrol.cpp",
+      "sha256": "e0f43b316389c55d42c8af64389b3ca088d8edcefed0395efd6b592632a4794d"
+    },
+    {
+      "path": "worldcraft/filtercontrol.h",
+      "sha256": "5290e5f446e48f3f4ff1e635e856cf706218199c22196a9d5dd9bc3487e582ed"
+    },
+    {
+      "path": "worldcraft/grouplist.cpp",
+      "sha256": "d3ee85003962bc1ea3f9decff9f8c751da13d8ad3e1eea2c143a053fb307a9b7"
+    },
+    {
+      "path": "worldcraft/grouplist.h",
+      "sha256": "baf8a88cdd230d5034ff8c785bb8ed42410f93f5f4eea9180f98bbeaf98904a0"
+    },
+    {
+      "path": "worldcraft/visgroup.cpp",
+      "sha256": "7d0021e4d2e5d31dfcbe3abc050f79deb896be2d84872ea6256ae089b03f5950"
+    },
+    {
+      "path": "worldcraft/visgroup.h",
+      "sha256": "20d7e43edfecdfa78062e3508f67086836df2770b7a3f1cca7a4ecee00abfa51"
+    },
+    {
+      "path": "worldcraft/mapclass.h",
+      "sha256": "9e88bfa4e6bbda958f49180ab9c93415dd66624193a4432b564c19dd63d062a8"
+    },
+    {
+      "path": "worldcraft/mapdoc.cpp",
+      "sha256": "1231607b6e4ad8081487fdbb2e9aed5cfd7de03c65d60d48aaee52913875d6b6"
+    },
+    {
+      "path": "worldcraft/mapdoc.h",
+      "sha256": "c6175582bfdaa5d36e10ca598a6073cfbc3671ce83f2209debd83ce4839ead4f"
+    },
+    {
+      "path": "worldcraft/mapworld.cpp",
+      "sha256": "cc5625a462e3be8b201016c7bd2a628c1a8d7dbe222de5196fbb1f35f8d62aad"
+    },
+    {
+      "path": "worldcraft/mapworld.h",
+      "sha256": "75c0a9a1b4e3b93b7c147e11c5e7e0c11a3de56ecb7b26814375f1a1e7f7eacd"
+    },
+    {
+      "path": "worldcraft/worldcraft.rc",
+      "sha256": "3066bdbe1dc2d38c2ddcfeb3dc2467db01635771a2c33c227782272643d49f70"
+    },
+    {
+      "path": "worldcraft/tests/editor_checks.cpp",
+      "sha256": "687429c900b76d7af9494b3d017b475f5fb4a19c90b658efb6c9634e7ae12a6f"
+    },
+    {
+      "path": "worldcraft/ObjectProperties.cpp",
+      "sha256": "4a60fc042363551cbbb6fe132df4db578454cef083c5a73ef3cfa4b86730fb32"
+    },
+    {
+      "path": "worldcraft/OP_Entity.cpp",
+      "sha256": "36ab636c5e542f89e869fa944e304d6fa41d1cc5b8770c1b20db413bd511456e"
+    },
+    {
+      "path": "worldcraft/OP_Flags.cpp",
+      "sha256": "20be60e53f1bbcf9cae63336a7d6127c62bcf06127ff09b0d3bbaa4ed7a396c1"
+    },
+    {
+      "path": "worldcraft/tests/flags_native_checks.inl",
+      "sha256": "0e45c8787fcdd3d43ba1490b863f7ba439e4acc63e51bf0c388a508943ba1fb2"
+    },
+    {
+      "path": "worldcraft/tests/visgroup_checks.inl",
+      "sha256": "1cb5095efccaca4ed54ef8439b8b64b2b920011de5b1ed638ed88bdcb759848f"
+    },
+    {
+      "path": "worldcraft/tests/entity_prefab_checks.inl",
+      "sha256": "c1cd3a863678dd8afd2f023ef27035d017a69486d46b83a1769487a9b72cacb9"
+    },
+    {
+      "path": "worldcraft/tests/check-native-menu-resources.py",
+      "sha256": "7f688b9b3ae10e38066b5c3c1e1574e3e7771af3214b9a0e79489c0e5329c62b"
+    },
+    {
+      "path": "worldcraft/tests/tool-checks.md",
+      "sha256": "f3209cb82dc875f6959370d8c853c6061948a79b6c3cd7307ab8153582c81008"
+    }
+  ],
+  "deployment": [
+    {
+      "configuration": "Release",
+      "path": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Release\\utils\\hammer.exe",
+      "sha256": "a8f45b7c15c9d7f4016783cd21ff5b3cf6fcc93c6985a1362915332b25310180",
+      "pdb_sha256": "64141f7815ac32198038eded6daf3f829bc7ddfd028ec0a51dd0f640eb3dd985",
+      "previous": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Release\\utils\\hammer.previous-visgroup-20261025-211821.exe",
+      "previous_sha256": "44b892432a8c15539eb7e8b51e2fbe34eeff3d9acb501ec73c1dde21bca36f1f",
+      "previous_pdb": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Release\\utils\\hammer.previous-visgroup-20261025-211821.pdb"
+    },
+    {
+      "configuration": "Debug",
+      "path": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Debug\\utils\\hammer.exe",
+      "sha256": "08f59968d1fa267cb6f7029c5e88cc06ac5eaea4c8d7d9fcc168918809bacfed",
+      "pdb_sha256": "2d25f943d95e29d9bd542adf46a1545b71078826228707533825e01d5bcad142",
+      "previous": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Debug\\utils\\hammer.previous-visgroup-20261025-211821.exe",
+      "previous_sha256": "1dec61f182103e18d983eee32ed5d1b4ff823eca1d4fe84c04b03898a3fa90c7",
+      "previous_pdb": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Debug\\utils\\hammer.previous-visgroup-20261025-211821.pdb"
+    }
+  ],
+  "checkpoint_archive": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine-backups\\hammer-visgroup-20261025-211821.zip",
+  "latest_search_ui_audit": "worldcraft/search-ui-audit.json",
+  "latest_smartedit_audit": "worldcraft/smartedit-audit.json",
+  "latest_browse_print_audit": "worldcraft/browse-print-audit.json",
+  "latest_file_dialog_audit": "worldcraft/file-dialog-audit.json",
+  "latest_modal_workflow_audit": "worldcraft/modal-workflow-audit.json",
+  "latest_source_remnant_audit": "worldcraft/source-remnant-audit.json"
+}

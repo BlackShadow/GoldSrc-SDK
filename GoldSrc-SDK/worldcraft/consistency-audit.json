@@ -1,0 +1,747 @@
+{
+  "recorded_utc": "2026-10-25T16:06:34.687377+00:00",
+  "scope": "Bounded VHE 3.4 restoration consistency audit; not complete interactive or byte parity.",
+  "reference": {
+    "path": "D:/SteamLibrary/steamapps/common/Half-Life SDK/Hammer Editor/hammer.exe",
+    "sha256": "ceef56a702c28eaade3c4b2d24722fe161ccff5a36580852a57e2c03dd3c90f3",
+    "build": 1983,
+    "provenance": "Original PE resources read directly; function comparisons use frozen native bodies in bin/obj/hammer/tool-parity. Live IDA MCP endpoint unavailable this run."
+  },
+  "fixed": [
+    {
+      "area": "Cordon MAP export",
+      "problem": "Nonadvancing temporary-child loop, incorrect ownership transfer and history pause handling.",
+      "result": "Export restores object ownership and prior history state and removes temporary shell brushes on completion or failure.",
+      "evidence": "bin/obj/hammer/tool-parity/cordon-export-repair.json"
+    },
+    {
+      "area": "MAP EOF handling",
+      "problem": "GetLine returned at EOF without clearing its output. A caller copied uninitialized stack contents into global stuffed-line storage, corrupting editor state during repeated MAP reloads.",
+      "result": "Initialize the output to an empty line before handling EOF. Reparse checks require the active document to remain intact.",
+      "source": "worldcraft/loadsave_map.cpp:GetLine"
+    },
+    {
+      "area": "Renderer state",
+      "problem": "Picking left the selection projection installed; cached textures ignored live filtering changes; selected outline pass lacked native polygon offset/culling state.",
+      "result": "Restore the normal camera projection after picking, refresh cached filters, restore selected solid outline state; mouse wheel immediately renders and updates camera variables.",
+      "evidence": [
+        "bin/obj/hammer/tool-parity/render-state-audit.json",
+        "bin/obj/hammer/tool-parity/solid-render.json"
+      ]
+    },
+    {
+      "area": "Face palette",
+      "problem": "Repeated mode transitions lost remembered texture-bar visibility, while idle command routing disabled palette buttons.",
+      "result": "Track face mode independently and guard repeated transitions. Preserve bar-owned controls through idle UI updates.",
+      "evidence": "bin/obj/hammer/tool-parity/face-consistency-repair.json",
+      "qualification": "Idle command routing is an adapter repair; no claim of identical native MFC implementation."
+    },
+    {
+      "area": "Native command surface",
+      "problem": "Source menu/shortcut/toolbar remnants and a missing 2D Create Object command route.",
+      "result": "Original menus, accelerator tables, operations toolbar and Help destinations restored. Create Object uses existing tool handlers with the native translation guard.",
+      "evidence": "bin/obj/hammer/tool-parity/workflow-audit-findings.json"
+    }
+  ],
+  "validation": {
+    "configurations": [
+      "Release|Win32",
+      "Debug|Win32"
+    ],
+    "builds": "Both project graphs passed with RunCodeAnalysis=true. Existing compiler/analysis warnings remain.",
+    "editor_checks": "Both final harness runs exited 0. Existing RMF/WAD, white missing textures, option layout, geometry, tools, input dispatch, history, properties, about and palette cases remain passing.",
+    "new_cases": [
+      "Real WM_COMMAND entity/block creation and pending-drag guard",
+      "Actual OpenGL pick/projection and cached filtering checks with selected solid",
+      "Three actual cordon MAP export/reparse cycles with six BLACK walls, original parents, temporary flags and history state",
+      "Repeated face mode transitions, caption close and idle controls"
+    ],
+    "resource_checks": "Both compiled executables passed direct comparison of native menus 128/129/182, accelerators 128/129, toolbar 260 and Help links.",
+    "fixtures": [
+      "D:/SteamLibrary/steamapps/common/Half-Life SDK/Map Files/env_beam.rmf",
+      "D:/SteamLibrary/steamapps/common/Half-Life/valve/halflife.wad"
+    ],
+    "logs": [
+      "bin/obj/hammer/consistency-release.log",
+      "bin/obj/hammer/consistency-debug.log",
+      "bin/obj/hammer/consistency-release-checks.log",
+      "bin/obj/hammer/consistency-debug-checks.log"
+    ]
+  },
+  "preserved": [
+    "Requested custom behavior: RMFs can open without WADs and missing textures render white.",
+    "Retained morph structured solids render even when another tool is active, as supported by native world render evidence.",
+    "Native Path AddNodeAt/HidePath limitations remain; no invented behavior added."
+  ],
+  "files": [
+    {
+      "path": "worldcraft/MapDoc.cpp",
+      "sha256": "ab3c4e5f144cf6d0f9d92a266d7a7a53f850334832c009d16da6111230efe0cc"
+    },
+    {
+      "path": "worldcraft/loadsave_map.cpp",
+      "sha256": "a7b73dbaf824438f3a16543579315556a9597ee5f911a708abd4150986f55522"
+    },
+    {
+      "path": "worldcraft/render3dgl.cpp",
+      "sha256": "f4ccc76241e0f0b99be5c360a5b8d9b5ed5d2fe2e2b789ad8fe0b2bbafbe1a94"
+    },
+    {
+      "path": "worldcraft/MapView3D.cpp",
+      "sha256": "1f71d39bf247fc71b7df32a0c5a23d0778995a9e75e0a00a7be370af84c6eaaa"
+    },
+    {
+      "path": "worldcraft/MapSolid.cpp",
+      "sha256": "5724ba3635010b4ae8a0264854441a1fcd8fb578ad14cf804c6a7b50adb06899"
+    },
+    {
+      "path": "worldcraft/MainFrm.cpp",
+      "sha256": "7a08cbcbd6e74641184a381ffc4db6b878bf1d523ce15c8a9d9735af74fbd440"
+    },
+    {
+      "path": "worldcraft/MainFrm.h",
+      "sha256": "325783f4ba7b820167da4b9a008fdb52deebb005d007e64829960311828714cf"
+    },
+    {
+      "path": "worldcraft/FaceEdit_MaterialPage.cpp",
+      "sha256": "219c48d9c6fa61517a74657d6782c7b722ec76c39d3ea18a3844d1c7c87bfc49"
+    },
+    {
+      "path": "worldcraft/FaceEdit_MaterialPage.h",
+      "sha256": "898e4b89903c94fce6c72b7d1d01db4b2df8bc7a6711cf5a513723fce6baba79"
+    },
+    {
+      "path": "worldcraft/MapView2D.cpp",
+      "sha256": "1fd8127b0e11447818801a5e753171d4119a5e44375413432552781da5e7860c"
+    },
+    {
+      "path": "worldcraft/MapView2D.h",
+      "sha256": "e4dc92214022cf8708c365911c0d8b2895487a60fc55d52c86b43cf04049dc78"
+    },
+    {
+      "path": "worldcraft/Tool3D.h",
+      "sha256": "5f018969e465afa5b479acade4692635c3b81bbe925aa9474870d31e569f0a7b"
+    },
+    {
+      "path": "worldcraft/worldcraft.rc",
+      "sha256": "b2cfd13e90e246c43c60d859bc8facfc19a608acffa9f617ab0d0689be272f18"
+    },
+    {
+      "path": "worldcraft/resource.h",
+      "sha256": "8c2f254f66523b5fdd286eb5b70c016912f7633de494c450f38609855fda34e7"
+    },
+    {
+      "path": "worldcraft/tests/editor_checks.cpp",
+      "sha256": "2ed2248ffb9e85028d8f5ffa8193119376ca6254f8db79d9437c226e9ab7408a"
+    },
+    {
+      "path": "worldcraft/tests/run-editor-checks.ps1",
+      "sha256": "3961c19ae5728305bfa5e874388fff62b889ca9436f8c0e8d68f273a456dc4dd"
+    },
+    {
+      "path": "worldcraft/tests/texture_checks.inl",
+      "sha256": "160e8b4aa3dbf9a8685e7a3cbc07cf7dd5538ed8e11eeb638039fca20be335be"
+    },
+    {
+      "path": "worldcraft/tests/command_checks.inl",
+      "sha256": "df04db0b8c524d67c9209ab495d658892155799a580097de92d93040924bfd15"
+    },
+    {
+      "path": "worldcraft/tests/cordon_export_checks.inl",
+      "sha256": "23dc14a8e19b36b9e547046a592d800441f27a1ddf1eb7c7ae154b3bb2389aea"
+    },
+    {
+      "path": "worldcraft/tests/render_state_checks.inl",
+      "sha256": "ec27db0110315b120ea4a9b690d9c38afcdd50e0ab6190ff92982be9dcd9c25b"
+    },
+    {
+      "path": "worldcraft/tests/check-native-menu-resources.py",
+      "sha256": "55719ec992f2d23051b9941be12e0163d0aa532d0435cd8f88fdb1cf3adf99c9"
+    },
+    {
+      "path": "worldcraft/tests/tool-checks.md",
+      "sha256": "b11edd7b20910ae41f813ec55eef9077289caab295d87ff165a23a9dbfe24a7a"
+    }
+  ],
+  "deployment": [
+    {
+      "configuration": "Release",
+      "path": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Release\\utils\\hammer.exe",
+      "sha256": "cca046d3f382eff2de9e755a187af365be739aa84ede995ed71c92d248133bbf",
+      "pdb_sha256": "2958154dec29e9369379a0c2ae502d3d533cd412236cb6a773aa2c8d46df83c5",
+      "previous": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Release\\utils\\hammer.previous-consistency-20261025-190633.exe",
+      "previous_sha256": "03614c023bd016ca2a9268a46662c8cdb0cd5b55a35731b5e4f8ec7210275fe2",
+      "previous_pdb": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Release\\utils\\hammer.previous-consistency-20261025-190633.pdb"
+    },
+    {
+      "configuration": "Debug",
+      "path": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Debug\\utils\\hammer.exe",
+      "sha256": "3fd0d054902cd98dab7f544134cc4c81ada59f1967a40c751ae1387d271a303f",
+      "pdb_sha256": "08d5be9e201f3c75bea9b7fa9bf68522e563a5e4f94f7c6c7d2f0bfa9b17fd76",
+      "previous": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Debug\\utils\\hammer.previous-consistency-20261025-190633.exe",
+      "previous_sha256": "fa7944c2a63867eca6bdbfc4af3b9a144f90df8ee789c582529e674cbabce55d",
+      "previous_pdb": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Debug\\utils\\hammer.previous-consistency-20261025-190633.pdb"
+    }
+  ],
+  "checkpoint_archive": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine-backups\\hammer-consistency-20261025-190633.zip",
+  "native_continuation_audit": {
+    "recorded_utc": "2026-10-25T16:46:05.167455+00:00",
+    "status": "Verified restoration checkpoint; full VHE interactive and pixel parity remains unproven.",
+    "reference": {
+      "path": "D:/SteamLibrary/steamapps/common/Half-Life SDK/Hammer Editor/hammer.exe",
+      "sha256": "ceef56a702c28eaade3c4b2d24722fe161ccff5a36580852a57e2c03dd3c90f3",
+      "analysis_copy": "bin/obj/hammer/native-reference/hammer.native.exe",
+      "analysis_database": "bin/obj/hammer/native-reference/hammer.native.i64",
+      "method": "Fresh IDA 9.5 analysis of exact copied native PE, raw disassembly and frozen function bodies, plus original PE resource comparison. Incorrect merged Animator function boundaries were repaired only in this disposable analysis copy."
+    },
+    "fixed": [
+      {
+        "area": "Entity and prefab workflow",
+        "result": "Entity tool lists only entities; Block tool retains libraries. Save prior game/tool selections before switching, restore per-game choices, retain selected classname in 2D/3D, and fall back to the first item when a remembered item is empty or missing.",
+        "evidence": "bin/obj/hammer/tool-parity/entity-prefab-contracts.json"
+      },
+      {
+        "area": "Pan focus ordering",
+        "result": "Active pan accumulates displacement and returns before view activation/focus dispatch. Native timer, Space-release and button-release contracts preserved.",
+        "evidence": "bin/obj/hammer/tool-parity/camera-dispatch-audit.json"
+      },
+      {
+        "area": "Native FGD helpers",
+        "result": "Six native factory entries only: sprite, iconsprite, studio, animator, keyframe, decal. Added keyframe links, native timing/interpolation, clone/remove splicing, path drawing and entity transform composition; removed Source-only factory entries and automatic origin/axis helper creation.",
+        "evidence": "bin/obj/hammer/tool-parity/native-helpers-implementation.json"
+      },
+      {
+        "area": "Animation dispatch and frame ownership",
+        "result": "Native document callback dispatch to movement controllers and inactive SDK gate restored. World traversal now marks render completion after rendering, so native keyframe frame guards no longer suppress the path. No Animation toolbar was added.",
+        "evidence": [
+          "bin/obj/hammer/tool-parity/native-animation-document-dispatch.json",
+          "bin/obj/hammer/tool-parity/native-helper-render-lifecycle.json"
+        ]
+      },
+      {
+        "area": "Native FGD grammar",
+        "result": "Restored five native class kinds and legacy Main; removed Source-only class/directive and variable-prefix syntax. Move/KeyFrame flags do not fabricate helpers: explicit declarations are required as in the native executable.",
+        "evidence": "bin/obj/hammer/tool-parity/native-fgd-contracts.json"
+      },
+      {
+        "area": "Sprite loading",
+        "result": "Removed Source VMT extension stripping. Load full SPR names through game search paths and return NULL on failure so entity fallback bounds remain possible.",
+        "evidence": "bin/obj/hammer/tool-parity/native-sprite-factory.json"
+      },
+      {
+        "area": "Source UI and view remnants",
+        "result": "Removed active selection-mode pane and unused Model page from UI/resources/build. Removed unused Source tool IDs, lightmap/lighting/smoothing view modes and command handlers, and 94 unused Source resource identifiers. Invalid saved splitter modes fall back to supported GoldSrc defaults.",
+        "evidence": [
+          "bin/obj/hammer/about-face-reference.json:42ac50",
+          "bin/obj/hammer/tool-parity/removed-source-resource-identifiers.json"
+        ]
+      }
+    ],
+    "verification": {
+      "builds": "Win32 Release and Debug full project graphs passed with RunCodeAnalysis=true after final source edits. Existing warnings remain; the new MapKeyFrame sscanf warning was removed without changing partial-parse behavior.",
+      "runtime": "Both final editor regression runs exited 0. Existing RMF/WAD/white missing textures, geometry, tool, options, about, palette, input and history checks remain passing.",
+      "new_cases": [
+        "Native FGD grammar and installed Half-Life FGD",
+        "Six real helper factories using generated valid SPR/MDL fixtures; missing SPR rejected",
+        "Keyframe interpolation, links, cloning/removal and parent/local matrices",
+        "Document animation activation and stop using fixture-only internal state",
+        "Actual OpenGL world traversal emits keyframe path gradient vertices",
+        "Actual 2D/3D entity placement, real prefab data, per-game selections and first-item fallback",
+        "Actual pan/camera window messages and capture/timer lifecycle",
+        "No Source selection/displacement bars or Model/selection dialog resources"
+      ],
+      "scope_limits": [
+        "Pan state is initialized by a fixture friend, followed by actual window messages; no desktop key/mouse injection.",
+        "Internal animation state is enabled only in the fixture; no unsupported SDK UI was invented.",
+        "Path drawing uses actual OpenGL feedback vertices; this is not a pixel-equivalence proof."
+      ],
+      "resource_checks": "Both compiled configurations match native menu/accelerator/operations-toolbar/Help resources and omit Source dialogs 315/316.",
+      "logs": [
+        "bin/obj/hammer/native-continuation-release.log",
+        "bin/obj/hammer/native-continuation-debug.log",
+        "bin/obj/hammer/native-continuation-release-checks.log",
+        "bin/obj/hammer/native-continuation-debug-checks.log"
+      ]
+    },
+    "remaining": [
+      {
+        "area": "Helper rebuild and undo ownership",
+        "status": "Native point-entity SetClass destroys old children. Current Source-era RemoveHelpers detaches without deleting, with a known undo-ownership warning. Native history Keep is structurally different. A coherent history/child ownership repair is still needed; this checkpoint does not claim that repair.",
+        "evidence": "bin/obj/hammer/tool-parity/native-helper-rebuild-audit.json",
+        "next": "Compare native history425230/425580 snapshot/copy ownership and restore class-change Undo/Redo plus repeated helper rebuild cleanup."
+      },
+      {
+        "area": "FGD variable types and dormant Source helpers",
+        "status": "GDvar type table still accepts Source-era types; unused Source compatibility flags/accessors and helper classes remain. Their dependency/reachability audit is pending."
+      },
+      {
+        "area": "Legacy excluded files",
+        "status": "Original OP_Model and SelectModeDlgBar source files are retained but excluded from the canonical project; their UI/resources are absent.",
+        "paths": [
+          "worldcraft/OP_Model.cpp",
+          "worldcraft/OP_Model.h",
+          "worldcraft/SelectModeDlgBar.cpp",
+          "worldcraft/SelectModeDlgBar.h"
+        ]
+      },
+      {
+        "area": "Full interactive parity",
+        "status": "Every input timing sequence, pathological keyframe cycle, prefab/history workflow and renderer pixel has not been established against the original runtime."
+      },
+      {
+        "area": "Build warnings",
+        "status": "Existing compiler and Code Analysis warnings remain outside the repaired paths."
+      }
+    ],
+    "preserved_custom_behavior": "RMFs open without WADs and missing textures render white, as explicitly requested.",
+    "files": [
+      {
+        "path": "worldcraft/ObjectBar.cpp",
+        "sha256": "55e07659dfbebad100e406e106ed278fa6fe4d2778d309f227015400c07ded74"
+      },
+      {
+        "path": "worldcraft/ObjectBar.h",
+        "sha256": "f46e5955c8ade8703af46af8e5dec6a39419c77833962a6bf0cea2b8967e3447"
+      },
+      {
+        "path": "worldcraft/ToolEntity.cpp",
+        "sha256": "6db15c9dd2dfe8a885552f2664ba5a00fe94dd2d00f915458b97e4f0c8c038c2"
+      },
+      {
+        "path": "worldcraft/MapView2D.cpp",
+        "sha256": "d8007a81b0167e356ec1c7ca42389b5096da38d600cdc977863a66b7fff9f77e"
+      },
+      {
+        "path": "worldcraft/MapView2D.h",
+        "sha256": "0ea9cad1be7ee513ed4c0561333fe4dc48dc342a6d3b5b03a828c9f73c7a85c6"
+      },
+      {
+        "path": "worldcraft/MapView3D.h",
+        "sha256": "4553f43f42c231f9eebda29e5b2a04dc23c6a250d945fa4bbe903ddebba17e76"
+      },
+      {
+        "path": "worldcraft/MapAnimator.cpp",
+        "sha256": "8805ecd16c309dda08d628f3340fba8424a93c9f53248a82a73b8c6b3df8f3e3"
+      },
+      {
+        "path": "worldcraft/MapAnimator.h",
+        "sha256": "3671a4990f6e63493f3d646c7b932a543a0fff37c816c57e10ee15bd6c002c4e"
+      },
+      {
+        "path": "worldcraft/MapKeyFrame.cpp",
+        "sha256": "1bb7ff12af334f012eb0a55ad7a9fd8cbde2f6be85303c71ba7663d6e75e725b"
+      },
+      {
+        "path": "worldcraft/MapKeyFrame.h",
+        "sha256": "316cbcbebcc7675199ca1eed769e1c226251df88f653ada62797742a06c936db"
+      },
+      {
+        "path": "worldcraft/HelperFactory.cpp",
+        "sha256": "6a97b9e6766dddbc00b002cf8dc1191f227dbfa998870b48e66695cfddb100d7"
+      },
+      {
+        "path": "worldcraft/MapEntity.cpp",
+        "sha256": "92ce697b33cd44aa846622c2272bb997fe80baee41e9dccd69a9bb1e37ec1cae"
+      },
+      {
+        "path": "worldcraft/MapEntity.h",
+        "sha256": "a529a61d6363e90c80cfaa24893febcaeea24f8c02f2f983c4444b0f9e7ccdd1"
+      },
+      {
+        "path": "worldcraft/GameData.cpp",
+        "sha256": "7039e3b66041e854f5431cc1e947aad6ebcb55e5a003ede449b5b988ab836aca"
+      },
+      {
+        "path": "worldcraft/GameData.h",
+        "sha256": "d43b83239e4f3933c3bf7777847e876e5e643be53703e315f03044b7479757bd"
+      },
+      {
+        "path": "worldcraft/GDclass.cpp",
+        "sha256": "893996468075d5c35d1ab19cfd093033d65d38ec15aae651bb942fa1d3894735"
+      },
+      {
+        "path": "worldcraft/MainFrm.cpp",
+        "sha256": "7dde30b1b47992c83676cbaa413490eac30981a3de80197162853c7235350712"
+      },
+      {
+        "path": "worldcraft/MainFrm.h",
+        "sha256": "5d1ebc9e2e6319ecfb025eb5cc880a1b465fd7fe8b191c0bb40ee1ee6934a589"
+      },
+      {
+        "path": "worldcraft/ControlBarIDs.h",
+        "sha256": "c58ea495e7f896f786cb7a03cd703f78c06ffb5f20ae288148485d51e88c5520"
+      },
+      {
+        "path": "worldcraft/ToolInterface.h",
+        "sha256": "38bea72f8ae28757030d8d54cbf8e6d79eaf57ae253e70d1edb8e5d70b0600df"
+      },
+      {
+        "path": "worldcraft/ToolManager.cpp",
+        "sha256": "7fa697d5b43adfe4ed9eeea537e3c8ef74ae3b9515cb0ecd4749ddd1127a74b4"
+      },
+      {
+        "path": "worldcraft/MapView.h",
+        "sha256": "c5978af7fc5736e42050a60cef64598c80dfd774ff8f96b5a17cd63e0a50f1c6"
+      },
+      {
+        "path": "worldcraft/ChildFrm.cpp",
+        "sha256": "b19d4a4077e57dd3fa31ece3992eb2266429799c647b406a8bd1bffbab47beb9"
+      },
+      {
+        "path": "worldcraft/ChildFrm.h",
+        "sha256": "afbd265903e4601e55a0c5cc1c790480fdbe126bed865506f51f8b4ef63821fd"
+      },
+      {
+        "path": "worldcraft/MapDoc.cpp",
+        "sha256": "d9300758e819632fdd8d5f14bddbf85647e0f5c9ec2ed382a7f1b5ba9626f0ae"
+      },
+      {
+        "path": "worldcraft/MapDoc.h",
+        "sha256": "40234de5dae74fb54b146485319f8afff369da173d12dfb7a68cc2f1fb0daa01"
+      },
+      {
+        "path": "worldcraft/Worldcraft.cpp",
+        "sha256": "038aec692adfb85c57de5a0b8a387701aa541927b35bde7eb0868f58b6184309"
+      },
+      {
+        "path": "worldcraft/MapSprite.cpp",
+        "sha256": "b1876cdb6b5c010caa195aaf7fd79066e6533b270190686c5eae4205adb1c8b8"
+      },
+      {
+        "path": "worldcraft/render3dgl.cpp",
+        "sha256": "48798ba8b68104090a62d402f27daa9f82648afcce461b7fc79c39454d5edcba"
+      },
+      {
+        "path": "worldcraft/worldcraft.rc",
+        "sha256": "6ad24d5ddc1cdd0df67c5e0f6079fa9d0942f3cd948b6067a03caf2462aff305"
+      },
+      {
+        "path": "worldcraft/resource.h",
+        "sha256": "8a6a5353ac7d8d8be88173b14cb02b0470d4d6d6128428ab488cf726b06846fc"
+      },
+      {
+        "path": "worldcraft/worldcraft.vcxproj",
+        "sha256": "70a2b059544b284751d4a1ce3fdbe27dabfb4c0a60e0d12ea415a4a211d982cd"
+      },
+      {
+        "path": "worldcraft/tests/editor_checks.cpp",
+        "sha256": "25471a8ff9fa45631fd549817377bfc0dfcf2ad87463e3f6bbd0003c1238de8c"
+      },
+      {
+        "path": "worldcraft/tests/entity_prefab_checks.inl",
+        "sha256": "6c804cb315dc4827a193b38189fe98e371b7415beb672abdd2c11b1dbe400a73"
+      },
+      {
+        "path": "worldcraft/tests/camera_dispatch_checks.inl",
+        "sha256": "be61cd7db5c0fba865ae025734ca9fbff886335e17e5cd254a14be13f724b5b7"
+      },
+      {
+        "path": "worldcraft/tests/native_helper_checks.inl",
+        "sha256": "224124f01d45c68278749eef60bd91f629f15ca8281367191a2cc383144db197"
+      },
+      {
+        "path": "worldcraft/tests/fgd_native_checks.inl",
+        "sha256": "be2b46f1a86e1bafa452d0b519f81e675d7852d2b547bbdb3329bd69afd2cef8"
+      },
+      {
+        "path": "worldcraft/tests/keyframe_render_checks.inl",
+        "sha256": "ab73717ccf2f38e09e55f31b8c6b43e5d20af0967c93aabb3c31b59087ce7511"
+      },
+      {
+        "path": "worldcraft/tests/check-native-menu-resources.py",
+        "sha256": "3b132eb54bfb6f12f6665e4d7c52364511cec0017cdc5349c38ce979f2a38939"
+      },
+      {
+        "path": "worldcraft/tests/tool-checks.md",
+        "sha256": "7ae52254c41d86e709dbb5eec6001cc6bcbc9951095914cfa04107b8e290bd16"
+      }
+    ],
+    "deployment": [
+      {
+        "configuration": "Release",
+        "path": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Release\\utils\\hammer.exe",
+        "sha256": "381d1ac9ffd8d4b22cf26a196b6471f6c0c4fac602cd25152d5f732d0e23f044",
+        "pdb_sha256": "4472e8bee62d913925ddf938073a310c721be584aa087b606d0ea4bf1435b239",
+        "previous": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Release\\utils\\hammer.previous-native-continuation-20261025-194604.exe",
+        "previous_sha256": "cca046d3f382eff2de9e755a187af365be739aa84ede995ed71c92d248133bbf",
+        "previous_pdb": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Release\\utils\\hammer.previous-native-continuation-20261025-194604.pdb"
+      },
+      {
+        "configuration": "Debug",
+        "path": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Debug\\utils\\hammer.exe",
+        "sha256": "dab497bf133ac5ff4e6c178721072567860b1997c2615c02f6ef369e68aa782f",
+        "pdb_sha256": "905dd0e62bd854aee7b9049dc82016f461156ffcc03f053323f7376c2c7d610f",
+        "previous": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Debug\\utils\\hammer.previous-native-continuation-20261025-194604.exe",
+        "previous_sha256": "3fd0d054902cd98dab7f544134cc4c81ada59f1967a40c751ae1387d271a303f",
+        "previous_pdb": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Debug\\utils\\hammer.previous-native-continuation-20261025-194604.pdb"
+      }
+    ],
+    "checkpoint_archive": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine-backups\\hammer-native-continuation-20261025-194604.zip"
+  },
+  "remaining_at_initial_checkpoint": [
+    {
+      "area": "Entity versus prefab categories",
+      "status": "Confirmed implementation difference; original category/default-class workflow still needs native comparison before selecting a coherent repair.",
+      "source": [
+        "ToolEntity.cpp:Marker3D::CreateMapObject",
+        "ObjectBar.cpp:CObjectBar::LoadEntityCategories"
+      ]
+    },
+    {
+      "area": "Dormant Source types",
+      "status": "Unexposed helper/overlay/displacement enum and factory remnants remain. Removing these requires a separate dependency and reachability review."
+    },
+    {
+      "area": "Interactive parity",
+      "status": "Complete camera/pan timing, every prefab/history workflow, and pixel-level overlay/edge parity have not been established."
+    },
+    {
+      "area": "Build warnings",
+      "status": "Existing compiler and Code Analysis warnings remain; this was a behavior consistency audit, not a warning cleanup."
+    }
+  ],
+  "ownership_audit": {
+    "recorded_utc": "2026-10-25T17:26:33.383346+00:00",
+    "status": "Verified ownership and FGD variable checkpoint; full restoration goal remains active.",
+    "reference": {
+      "path": "D:/SteamLibrary/steamapps/common/Half-Life SDK/Hammer Editor/hammer.exe",
+      "sha256": "ceef56a702c28eaade3c4b2d24722fe161ccff5a36580852a57e2c03dd3c90f3",
+      "database": "bin/obj/hammer/native-reference/hammer.native.i64",
+      "method": "Fresh native IDA bodies, raw disassembly and offline PE type table; exact frozen evidence in bin/obj/hammer/tool-parity."
+    },
+    "fixed": [
+      {
+        "area": "History event flags",
+        "problem": "Source enum declared copy as zero while its bookkeeping used event types as bit masks.",
+        "result": "Independent copy/delete/create/parent flags 1/2/4/8; first snapshot retained, repeated entries deduplicated.",
+        "evidence": "bin/obj/hammer/tool-parity/native-history-implementation.json"
+      },
+      {
+        "area": "Object data versus hierarchy",
+        "result": "Keep snapshots only its object. Parent changes have independent records; CopyFrom no longer transfers Parent. Proven mutation paths record pre-edit object data and hierarchy changes.",
+        "evidence": [
+          "bin/obj/hammer/tool-parity/native-history-class-mutations.json",
+          "bin/obj/hammer/tool-parity/native-history-object-ownership.json"
+        ]
+      },
+      {
+        "area": "Generated helper lifecycle",
+        "result": "Rebuilds immediately destroy old nonserialized helpers. Their pointers are excluded from history; restored entity state regenerates helpers. Decal reference cleanup is separate from world unlink/keyframe removal. Actual helpers retain normal visibility flags."
+      },
+      {
+        "area": "Deleted-object ownership",
+        "result": "Undo/Redo transfers deletion and creation ownership without leaking or double deletion in the exercised cases. Eviction, history disable and shutdown release retained deleted objects; world membership transitions maintain Source entity/culling caches."
+      },
+      {
+        "area": "Clipboard copies and rename restoration",
+        "result": "Copied trees remain detached, so Copy no longer removes an unlinked copy through the live world lifecycle. The previous targetname buffer is initialized before unnamed-to-named redo dependency relinking."
+      },
+      {
+        "area": "FGD variables",
+        "result": "Exactly 13 native accepted types; integer angle storage. Source readonly, extended description and omitted-default syntax removed. Existing defaults, choices, flags, reportable-copy behavior and installed SDK FGD remain passing.",
+        "types": [
+          "angle",
+          "choices",
+          "color1",
+          "color255",
+          "decal",
+          "flags",
+          "integer",
+          "sound",
+          "sprite",
+          "string",
+          "studio",
+          "target_destination",
+          "target_source"
+        ],
+        "evidence": [
+          "bin/obj/hammer/tool-parity/native-fgd-variable-table.json",
+          "bin/obj/hammer/tool-parity/history-fgd-ownership-functions.json"
+        ]
+      }
+    ],
+    "source_adapters": [
+      "Nonserialized generated helpers are omitted from pointer-based source history; native field behavior differs. IsTemporary remains unchanged because source visibility traversal requires visible helpers to be nontemporary.",
+      "Entity Undo notifications regenerate helper state and then update live dependencies; helper objects themselves are not independent persistent map objects.",
+      "Automatic mutation snapshots and parent records are scoped to the active map. Detached clipboard/prefab construction does not enter that map history.",
+      "Existing recursive KeepNew callers are retained as a source frontend compatibility path; native public KeepNew records one object.",
+      "Deleted-object cleanup on source history shutdown/disable differs from native cleanup mode 2 because this source history owns those detached objects.",
+      "World membership transitions use source document lifecycle APIs to preserve entity caches, culling, visibility and preload."
+    ],
+    "verification": {
+      "builds": "Final Win32 Release and Debug full project graphs passed with RunCodeAnalysis=true. Existing warnings remain; newly introduced pointer/union warnings were addressed.",
+      "runtime": "Both final full editor regression harness runs exited 0, including all previous geometry/tool/input/UI/RMF/WAD checks.",
+      "new_cases": [
+        "Native 13 variable names/storage, integer angle canonicalization, defaults, choices, flags, reportable copies and installed FGD",
+        "Copy deduplication without recursive child snapshots",
+        "Independent reparent Undo/Redo",
+        "Creation/deletion Undo/Redo, entity cache restoration, eviction, history disable and shutdown cleanup",
+        "Nonserialized helper exclusion without temporary visibility flags",
+        "Forty counted helper destructions across repeated class/model edits and Undo/Redo",
+        "Unnamed entity rename Undo/Redo",
+        "Visibility updates and actual Copy command without changing the original world hierarchy"
+      ],
+      "resources": "Both compiled configurations pass original menus/accelerators/toolbar/Help comparisons and omit the Source Model/selection dialogs.",
+      "logs": [
+        "bin/obj/hammer/ownership-release.log",
+        "bin/obj/hammer/ownership-debug.log",
+        "bin/obj/hammer/ownership-release-checks.log",
+        "bin/obj/hammer/ownership-debug-checks.log"
+      ]
+    },
+    "remaining": [
+      {
+        "area": "Dormant Source code and compatibility interfaces",
+        "status": "Unused helper classes, unsupported FGD enum values/accessors and excluded legacy Model/selection-pane source files remain. Accepted grammar and exposed UI are restricted, but full source dependency cleanup is unfinished."
+      },
+      {
+        "area": "Broader history and dependency parity",
+        "status": "Keyframe clone NextKey Undo, movement-parent deletion/eviction dependencies, cross-type brush/point class changes and every nested prefab/group workflow still need focused native comparisons and tests."
+      },
+      {
+        "area": "Complete UI and rendering parity",
+        "status": "All remaining property/help dialog behavior, input timing sequences and renderer pixels have not been exhaustively compared with the original runtime."
+      },
+      {
+        "area": "Build warnings",
+        "status": "Existing compiler and Code Analysis warnings remain. No warning-free project claim."
+      }
+    ],
+    "custom_behavior_preserved": "RMFs open without WADs and missing textures render white.",
+    "files": [
+      {
+        "path": "worldcraft/History.cpp",
+        "sha256": "47b9ee8c6dcc617ba7b5b8874f12e261e043fe074b67622c5068e8680c5cb921"
+      },
+      {
+        "path": "worldcraft/History.h",
+        "sha256": "bf71e562430e6b1d2658902e38e8e9a0d4d1e262c8f6d4e4e6f492839b3ea6db"
+      },
+      {
+        "path": "worldcraft/MapClass.cpp",
+        "sha256": "fb9a2d64e146a6ffc6cecff61f6bbdf3d0541fd95b9e596b8faf89617854765b"
+      },
+      {
+        "path": "worldcraft/MapClass.h",
+        "sha256": "73ca165daf33516dda3b0d304bc6d7bccbb512ac0106eea838ba14c53b4a57a5"
+      },
+      {
+        "path": "worldcraft/MapSolid.cpp",
+        "sha256": "a985643a990cadc71203b4c8c8e19b89aedbc427c64ea032f52d48e74d128eb2"
+      },
+      {
+        "path": "worldcraft/MapEntity.cpp",
+        "sha256": "1b3410d8d7179795d334760faa20a4a1af77d0c40ebb79fcaf8228d494660195"
+      },
+      {
+        "path": "worldcraft/MapEntity.h",
+        "sha256": "9a41f88d0e3904966f6eb8bb94d6e0bcdb054c0c6fa27a6750d4928242f063c7"
+      },
+      {
+        "path": "worldcraft/MapDoc.cpp",
+        "sha256": "a8149602a7c93ac9e192964b11015bfcc532736dc79af44b3d54fb71e8dc9f86"
+      },
+      {
+        "path": "worldcraft/GDvar.cpp",
+        "sha256": "fbc8e4f687c08e439017fb0c4866f61068bd26bba4edc33c5a41fd14b91bb3be"
+      },
+      {
+        "path": "worldcraft/tests/editor_checks.cpp",
+        "sha256": "cfddcdbb18f708fbf65e2c95e89294e23be26b7dc5619058fc7f24882a81b291"
+      },
+      {
+        "path": "worldcraft/tests/history_native_checks.inl",
+        "sha256": "a3c51c8062d81f105ecbd7b527dbe7a10104482297c270ac25bc36a245527932"
+      },
+      {
+        "path": "worldcraft/tests/helper_rebuild_checks.inl",
+        "sha256": "272fa6001f417895f40ac60cecfc41347a4f27c3f550a4bdc9f18f0f55a79ad9"
+      },
+      {
+        "path": "worldcraft/tests/fgd_variable_checks.inl",
+        "sha256": "ac8220b627a11d0f00c0e40f9760575990b2dc62e3ff30968a71294330ccaedb"
+      },
+      {
+        "path": "worldcraft/tests/tool-checks.md",
+        "sha256": "fab3179e4a241d5cd40d6f1e7fb9e7c624f90b0ff1991cb1027c20e471d09937"
+      }
+    ],
+    "deployment": [
+      {
+        "configuration": "Release",
+        "path": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Release\\utils\\hammer.exe",
+        "sha256": "60d42b52e0693a2b015b823037164846c4e07473f80f251b1a8c3f76a33b8b93",
+        "pdb_sha256": "ef6e34e92a4468a774132e0e4aab93bb4eff14b3c4c25729ba282c3227c549f7",
+        "previous": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Release\\utils\\hammer.previous-ownership-20261025-202632.exe",
+        "previous_sha256": "381d1ac9ffd8d4b22cf26a196b6471f6c0c4fac602cd25152d5f732d0e23f044",
+        "previous_pdb": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Release\\utils\\hammer.previous-ownership-20261025-202632.pdb"
+      },
+      {
+        "configuration": "Debug",
+        "path": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Debug\\utils\\hammer.exe",
+        "sha256": "c8a3444b11ab69c5b5d41f73a814fb77005b2074462d0a1ec9e180b98382885d",
+        "pdb_sha256": "32ed323041aa321fec46003fcf30fa42eacab35c3bf2f0757e412abf27f93173",
+        "previous": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Debug\\utils\\hammer.previous-ownership-20261025-202632.exe",
+        "previous_sha256": "dab497bf133ac5ff4e6c178721072567860b1997c2615c02f6ef369e68aa782f",
+        "previous_pdb": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Debug\\utils\\hammer.previous-ownership-20261025-202632.pdb"
+      }
+    ],
+    "checkpoint_archive": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine-backups\\hammer-ownership-20261025-202632.zip"
+  },
+  "remaining_at_previous_checkpoint": [
+    {
+      "area": "Helper rebuild and undo ownership",
+      "status": "Native point-entity SetClass destroys old children. Current Source-era RemoveHelpers detaches without deleting, with a known undo-ownership warning. Native history Keep is structurally different. A coherent history/child ownership repair is still needed; this checkpoint does not claim that repair.",
+      "evidence": "bin/obj/hammer/tool-parity/native-helper-rebuild-audit.json",
+      "next": "Compare native history425230/425580 snapshot/copy ownership and restore class-change Undo/Redo plus repeated helper rebuild cleanup."
+    },
+    {
+      "area": "FGD variable types and dormant Source helpers",
+      "status": "GDvar type table still accepts Source-era types; unused Source compatibility flags/accessors and helper classes remain. Their dependency/reachability audit is pending."
+    },
+    {
+      "area": "Legacy excluded files",
+      "status": "Original OP_Model and SelectModeDlgBar source files are retained but excluded from the canonical project; their UI/resources are absent.",
+      "paths": [
+        "worldcraft/OP_Model.cpp",
+        "worldcraft/OP_Model.h",
+        "worldcraft/SelectModeDlgBar.cpp",
+        "worldcraft/SelectModeDlgBar.h"
+      ]
+    },
+    {
+      "area": "Full interactive parity",
+      "status": "Every input timing sequence, pathological keyframe cycle, prefab/history workflow and renderer pixel has not been established against the original runtime."
+    },
+    {
+      "area": "Build warnings",
+      "status": "Existing compiler and Code Analysis warnings remain outside the repaired paths."
+    }
+  ],
+  "remaining": [
+    {
+      "area": "Dormant Source code and compatibility interfaces",
+      "status": "Unused helper classes, unsupported FGD enum values/accessors and excluded legacy Model/selection-pane source files remain. Accepted grammar and exposed UI are restricted, but full source dependency cleanup is unfinished."
+    },
+    {
+      "area": "Broader history and dependency parity",
+      "status": "Keyframe clone NextKey Undo, movement-parent deletion/eviction dependencies, cross-type brush/point class changes and every nested prefab/group workflow still need focused native comparisons and tests."
+    },
+    {
+      "area": "Complete UI and rendering parity",
+      "status": "All remaining property/help dialog behavior, input timing sequences and renderer pixels have not been exhaustively compared with the original runtime."
+    },
+    {
+      "area": "Build warnings",
+      "status": "Existing compiler and Code Analysis warnings remain. No warning-free project claim."
+    }
+  ],
+  "latest_properties_dependency_audit": "worldcraft/properties-dependency-audit.json",
+  "latest_visgroup_audit": "worldcraft/visgroup-audit.json",
+  "latest_search_ui_audit": "worldcraft/search-ui-audit.json",
+  "latest_smartedit_audit": "worldcraft/smartedit-audit.json",
+  "latest_browse_print_audit": "worldcraft/browse-print-audit.json",
+  "latest_file_dialog_audit": "worldcraft/file-dialog-audit.json",
+  "latest_modal_workflow_audit": "worldcraft/modal-workflow-audit.json",
+  "latest_source_remnant_audit": "worldcraft/source-remnant-audit.json"
+}

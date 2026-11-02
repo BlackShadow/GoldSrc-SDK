@@ -1,0 +1,257 @@
+{
+  "backup": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine-backups\\worldcraft-before-goldsrc-20261024-174533.zip",
+  "removed": [
+    {
+      "file": "bsplighting.cpp",
+      "original_sha256": "53b345807966d3e888fbac76b942da45cf62c7170e2d50cbd9310d31fb988da9"
+    },
+    {
+      "file": "bsplighting.h",
+      "original_sha256": "253990a6af9d291751162d0e94cb536201574e7564f9cd7d53567c31091efc50"
+    },
+    {
+      "file": "bsplightingthread.cpp",
+      "original_sha256": "74dd978ea26c181200cd453e92c807e191e8d248f53bdf95bb2fd4e6a055199c"
+    },
+    {
+      "file": "bsplightingthread.h",
+      "original_sha256": "39f60e4022bae9a88ed84ec24072a232ba64bbbba58aa4bc75c9a3d676205d56"
+    },
+    {
+      "file": "dispdlg.cpp",
+      "original_sha256": "9c260a5aeb95b5fa2cd040e7b746df3fd3e2069d7f5833eb54a661011a94f427"
+    },
+    {
+      "file": "dispdlg.h",
+      "original_sha256": "83de5c35fbda8cf82129733f1628e271196264af9994b8a2bb2dfa397ed631bf"
+    },
+    {
+      "file": "dispmanager.cpp",
+      "original_sha256": "d9402109d7905c8a0781ecf39faac73d1e293f36b046073ee3c3eb4ce60091c6"
+    },
+    {
+      "file": "dispmanager.h",
+      "original_sha256": "5878f2c2bbd3a1b6872af12596bb09bf9d09a750ad4fcae3a0f90e4eef66fd09"
+    },
+    {
+      "file": "dispmapimagefilter.cpp",
+      "original_sha256": "4d114cbf87c9173011246934cdbec9f9fd629fe32a6a021f9a55516b9062527d"
+    },
+    {
+      "file": "dispmapimagefilter.h",
+      "original_sha256": "39f9c3e8aa89d27e2a312c7cc2f28ceb6c8c9812de5258c7ba9fac5bb8bce782"
+    },
+    {
+      "file": "disppaint.cpp",
+      "original_sha256": "d3843fb2e9991d0f606982ad3d0608e0313bdc83a63ec0c57548428ea871cd13"
+    },
+    {
+      "file": "disppaint.h",
+      "original_sha256": "048f7d87b08c53a01b3a606839c9e1b1140fa31f72d19feb456db0d01633fee9"
+    },
+    {
+      "file": "dispsew.cpp",
+      "original_sha256": "2175832834e5675026a533515878c856b4695e67f99b41e8ca1b442fd850d3ef"
+    },
+    {
+      "file": "dispsew.h",
+      "original_sha256": "33e6425eef0bc2139d707312d29a02a1bb52f908b0d21a8f483e7f410d7b2c23"
+    },
+    {
+      "file": "dispsubdiv.cpp",
+      "original_sha256": "26fc78bb20ed34ba975c293789408b5b2a351663d3dc4994c7f1aac83c3abb9d"
+    },
+    {
+      "file": "dispsubdiv.h",
+      "original_sha256": "47e7ff1d8e649bb525c982ba4dacff5de2ea4cf4643f4f7d2a349e85c8dc4037"
+    },
+    {
+      "file": "dispview.h",
+      "original_sha256": "2728ceb9ff31e034447a8a2237aa277245eb9adac38a21d4c8fc389fd2b5625b"
+    },
+    {
+      "file": "entityconnection.cpp",
+      "original_sha256": "073d11784972e22a0cd265d01e33f117a4481ac20d719923d7e339baded12784"
+    },
+    {
+      "file": "entityconnection.h",
+      "original_sha256": "9b8060b26e92b43b0a354a3add6db0e841af074e33a4931eba727eaf603c5820"
+    },
+    {
+      "file": "faceedit_disppage.cpp",
+      "original_sha256": "7721a4c70171968d9bba12ff33233cf23f9585cd7313367e2a03efd784777433"
+    },
+    {
+      "file": "faceedit_disppage.h",
+      "original_sha256": "fdbf22c2b2b2a6beed2cf2d2ef010d0dae8e63c19a07765b4c60259c2fb0d93b"
+    },
+    {
+      "file": "filesystem_wc.cpp",
+      "original_sha256": "da6760f01bcfb2b058c79b4d6b8bf04a3ecccd2ea10deedde9dc231619df94bd"
+    },
+    {
+      "file": "filesystem_wc.h",
+      "original_sha256": "1ce81e033b987a8a96697b913ec8a0e6569f61c551941647de6bdf5639bcdd65"
+    },
+    {
+      "file": "gizmo.cpp",
+      "original_sha256": "6d9c9bfcd5670a299de52145ffb2a9bb3b74e326aea86ca57b647bfcf20d5b3d"
+    },
+    {
+      "file": "gizmo.h",
+      "original_sha256": "e5022bc2fda813b60aaab193128355594a82fc837f135aaab637ad3582203fc2"
+    },
+    {
+      "file": "ibsplighting.h",
+      "original_sha256": "74b86b8f591713d59f8955b227730b255f24f6bf7d75c06cc0ca7e07e53aa662"
+    },
+    {
+      "file": "ibsplightingthread.h",
+      "original_sha256": "315ab3a4525c643951667292c4e0b74610342482362d2641fc5463861f4e533f"
+    },
+    {
+      "file": "inputoutput.cpp",
+      "original_sha256": "ffab2da98a7ea9f6d28a8e4020c47549432ce151b3b2a69c40677f5b7f570816"
+    },
+    {
+      "file": "inputoutput.h",
+      "original_sha256": "be6f6c460f9e29eef38d60afae1d27733e16cb58da668783b1438449b64e691d"
+    },
+    {
+      "file": "mapanimationdlg.cpp",
+      "original_sha256": "2d8c06312f1036e35073dc8033b3143d43321a277cb669b429beeca9ceeddbfc"
+    },
+    {
+      "file": "mapanimationdlg.h",
+      "original_sha256": "1cf84af34051f5e05bbc96eed92de7fd974242b87879a707e4429a83e7dd8a8a"
+    },
+    {
+      "file": "mapanimator.cpp",
+      "original_sha256": "4c5f5fcdab0d4cac7db8fb0b0a6ab029aefa4fa86a4d356353b9fb1be5781970"
+    },
+    {
+      "file": "mapanimator.h",
+      "original_sha256": "584dfe1718a40683af7c0d2a619ac7c6c03b9ee5f3cd3b32db799329ea845486"
+    },
+    {
+      "file": "mapdisp.cpp",
+      "original_sha256": "8a6a042f26bae2b8f3e7d2169e624e1e9442dc10100fda1c2c04ab8f2b3a43e1"
+    },
+    {
+      "file": "mapdisp.h",
+      "original_sha256": "2ca08c419c521a8efa9a248f3237871e696e3708510fdbc80589c0bb7470daf5"
+    },
+    {
+      "file": "mapkeyframe.cpp",
+      "original_sha256": "5ef8db8ba3cc08078f16ae1ecabf7731b464b9199c4206b85f1780df98fcb054"
+    },
+    {
+      "file": "mapkeyframe.h",
+      "original_sha256": "7b3e2ae375da1aaa97b6f83f0a5b988518f549781909f12ba5463fcc7a6212a1"
+    },
+    {
+      "file": "mapoverlay.cpp",
+      "original_sha256": "e158f3fecbca67d528c722fe475cd9c153443ad8955ab4e5f75f64bf0ca13a83"
+    },
+    {
+      "file": "mapoverlay.h",
+      "original_sha256": "34e5a9ea6bcd32584d290b4f0c6da013de921cf5c00799c2209f0f170abe4958"
+    },
+    {
+      "file": "material.cpp",
+      "original_sha256": "c924909b587ed8345671a85bab7a35ee1a16cff7d92068f8f26dc8040dab2706"
+    },
+    {
+      "file": "material.h",
+      "original_sha256": "24b27a7a040819206d28abcd4c14f49c8bf8559f5e95c973c8824d23890d7ad6"
+    },
+    {
+      "file": "materialdlg.cpp",
+      "original_sha256": "8b6cdd16c7ebe57d19357531119c86b955a06c12f3749fd3322e31f685749259"
+    },
+    {
+      "file": "materialdlg.h",
+      "original_sha256": "e5bd4cca80328c7e01f3505b480cf16c954b4356ae9a93bdc1c2137fd5c8cb28"
+    },
+    {
+      "file": "materialproxyfactory_wc.cpp",
+      "original_sha256": "c51174f31919e892106f87e34192fdd4c6818d1837146043a47dbc5383e524bc"
+    },
+    {
+      "file": "materialproxyfactory_wc.h",
+      "original_sha256": "12fa0e26dc9224f4428c89169e1b43198f4b61367f8c21530850473af8813432"
+    },
+    {
+      "file": "op_input.cpp",
+      "original_sha256": "9b2d53b3d639407b1ef84999452c0823c5ebd6170781114052e1a0520c1152c2"
+    },
+    {
+      "file": "op_input.h",
+      "original_sha256": "cca7b43c5489102152389b27702367d3b687e94b1dac5b03881eb90f791570a8"
+    },
+    {
+      "file": "op_output.cpp",
+      "original_sha256": "8dbff6bd15e840cad9f6c9399c537000a8013258af72393bce9175bc06e118af"
+    },
+    {
+      "file": "op_output.h",
+      "original_sha256": "94afc7800f9bd511dca86e9ae6a5fd530c83f37f01b84cc77ac014cd9f98c9bd"
+    },
+    {
+      "file": "render3dms.cpp",
+      "original_sha256": "ec72ae48c86284ed1c32ae4395194148e24130153e3c5f784c65b0223e57817c"
+    },
+    {
+      "file": "render3dms.h",
+      "original_sha256": "dea986ac8521880fb38b3800958791fb5029e608a83ee2391b7e3580de97c724"
+    },
+    {
+      "file": "saveinfo.cpp",
+      "original_sha256": "99eb82328898d302c413357f7ef832767567df43ceb4a65e437c980fd49e4328"
+    },
+    {
+      "file": "saveinfo.h",
+      "original_sha256": "bc8c381ba7f280a7357c3cc7e2124a096255b33eaca1244c647de18fdc7edd6c"
+    },
+    {
+      "file": "SmoothingGroupMgr.cpp",
+      "original_sha256": "8e6167e8a5d51012ddd3e31c8a623c136230aec3ae9f96926359771b5ec0694d"
+    },
+    {
+      "file": "SmoothingGroupMgr.h",
+      "original_sha256": "aafe231da4721907c6aa7dc529c54a1680a34f13b9a19ace96f5a9c3b5a04d9a"
+    },
+    {
+      "file": "subdiv.cpp",
+      "original_sha256": "6f11b7f0698e3846ea35870ed9519249aacd06ec54a02e62b930a7c14c40125d"
+    },
+    {
+      "file": "subdiv.h",
+      "original_sha256": "bdb32c0d49f293244976349b3011abb931ee066b50d4e77b3aea251dbb006e83"
+    },
+    {
+      "file": "textureconverter.cpp",
+      "original_sha256": "cc3f4a4a45c2447433013ea50234455087460a11d95e1b516a86c79620ca4d05"
+    },
+    {
+      "file": "textureconverter.h",
+      "original_sha256": "2d79fb31c0ddfb2117f1cd7dc2471eacddc90ef9f9eff326e656e967b2deae25"
+    },
+    {
+      "file": "tooldisplace.cpp",
+      "original_sha256": "7e66bf1772eb732cc8835f4de2f9fed1673f845ad0b96dbfa9de7d5fc0ee7ad9"
+    },
+    {
+      "file": "tooldisplace.h",
+      "original_sha256": "9a1cec00a6f90a82b5f86fb1d7b4e83a3ec58352edcac90a275eabfc8930f66c"
+    },
+    {
+      "file": "ToolOverlay.cpp",
+      "original_sha256": "d49e80ce0d57147d0161119ac6cc6c1b176ebabbe8e9d3106ef7916db5d1723c"
+    },
+    {
+      "file": "ToolOverlay.h",
+      "original_sha256": "3463b4b384b7c040d99f8cf42fd5efc5c6ed47b67d364ba19febec86ddc1a364"
+    }
+  ]
+}

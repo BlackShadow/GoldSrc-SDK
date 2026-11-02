@@ -1,0 +1,130 @@
+{
+  "recorded_utc": "2026-10-25T19:25:06.737717+00:00",
+  "status": "Verified search-directory, accepted-file and native dialog-resource checkpoint; full restoration remains active.",
+  "reference": {
+    "path": "D:/SteamLibrary/steamapps/common/Half-Life SDK/Hammer Editor/hammer.exe",
+    "sha256": "ceef56a702c28eaade3c4b2d24722fe161ccff5a36580852a57e2c03dd3c90f3",
+    "database": "bin/obj/hammer/native-reference/hammer.native.i64",
+    "method": "Fresh native IDA bodies, raw disassembly and offline PE type table; exact frozen evidence in bin/obj/hammer/tool-parity."
+  },
+  "fixed": [
+    "Sprite searches now use the native sprites directory rather than the Source materials/sprites directory. Removed the unused Source scenes search enum and suffix branch.",
+    "Restored explicit OFN_ENABLESIZING in the current MFC Browse constructor. The original MFC adds this inside its constructor even though the native command passes only OFN_FILEMUSTEXIST; the previous checkpoint interpreted the command argument without that framework effect.",
+    "Restored exact native print progress and preview toolbar templates in a project-owned resource include, retaining the print strings, shortcuts and magnify cursor without modifying the toolchain.",
+    "Restored original startup/registration and loading-dialog captions/text for dormant native templates187/196.",
+    "Restored missing native Colors175 and Animation287 templates as inactive assets; no menus, page registrations or handlers were invented.",
+    "The compiled verifier now requires every native dialog ID and compares all51 templates. Only the exact About SDK caption adapter and extra modern-MFC support dialog30734 are allowed."
+  ],
+  "source_adapters": [
+    "About100 stores the SDK suffix statically while the original adds it at runtime. The verifier substitutes only that single UTF-16 caption and compares every remaining template byte.",
+    "The active source MFC runtime remains newer than the reference. Its empty framework dialog30734 is retained and explicitly inventoried.",
+    "The two restored dormant templates remain inactive, matching the previously inspected SDK configuration rather than inventing unsupported tools."
+  ],
+  "verification": {
+    "builds": "Complete Win32 Release and Debug Rebuild graphs passed with RunCodeAnalysis=true. Existing warnings remain.",
+    "runtime": "Both complete editor harnesses exited zero, including hidden native progress CDialog and preview CDialogBar creation, ordered IDs/styles/captions, mapped dialog-unit rectangles, live label updates, print strings, accelerator and cursor.",
+    "accepted_files": "Each harness completes19 real IDOK selections through production SmartEdit Browse: six sound, six sprite and seven studio, plus cancellation. Checks literal native initial directories, repeated and changed mod roots, base-game fallback, empty mod, outside-root absolute paths, slash conversion, explicit JPG preservation and normal EN_CHANGE/SaveData with127-character truncation.",
+    "fixture_scope": "Thread-scoped hooks inspect actual OPENFILENAME metadata through CDN_INITDONE or the permanent MFC object. Only the identified owned file dialog is subclassed for deferred filename-control messages and actual IDOK; a local timer cancels fixture failures. No fake EndDialog success or desktop input. Known temporary paths are prefix-checked, config/CWD/values restored and owned files/directories removed.",
+    "resources": "All51 original dialog IDs are present. Fifty match raw bytes; About100 differs only by the documented SDK title suffix. The verifier also preserves exact print strings, accelerator and cursor content, menus, toolbar and Help resources.",
+    "logs": [
+      "bin/obj/hammer/browse-print-release.log",
+      "bin/obj/hammer/browse-print-release-checks.log",
+      "bin/obj/hammer/browse-print-debug.log",
+      "bin/obj/hammer/browse-print-debug-checks.log"
+    ],
+    "evidence": [
+      "bin/obj/hammer/tool-parity/native-search-directories.json",
+      "bin/obj/hammer/tool-parity/native-print-entrypoints.json",
+      "bin/obj/hammer/tool-parity/native-browse-framework-flags.json",
+      "bin/obj/hammer/tool-parity/native-dormant-dialog-resources.json",
+      "bin/obj/hammer/tool-parity/common-file-dialog-inventory.json",
+      "bin/obj/hammer/tool-parity/browse-print-dialog-inventory.json"
+    ]
+  },
+  "remaining": [
+    "Physical printer output, full print-preview rendering, color/decal modal interactions and exhaustive DPI/pixel/timing parity are not established by these checks.",
+    "Other entity-page behavior, dormant picker classes and Source compatibility APIs remain to audit.",
+    "The canonical file-dialog inventory identifies10 other caller sites requesting the current MFC default host. Their native callers and runtime hosting still require comparison, especially the templated MAP/DXF export dialog.",
+    "Cordon/view visibility, movement/history edge cases and nested prefab/group workflows need broader native comparison.",
+    "Existing compiler and Code Analysis warnings remain."
+  ],
+  "custom_behavior_preserved": "RMFs open without WADs and missing textures render white.",
+  "files": [
+    {
+      "path": "worldcraft/worldcraft.cpp",
+      "sha256": "b6a9db6b75a9be3beb2afd7778eb5c2414d23e840a8e44865af8ba0700976a21"
+    },
+    {
+      "path": "worldcraft/worldcraft.h",
+      "sha256": "af520fc3cd07a2286a3f5d332220ecb3842c14d03329d348a5680297375d7a3e"
+    },
+    {
+      "path": "worldcraft/worldcraft.rc",
+      "sha256": "36f6d36017768616c04abe61555702d5f5e0539a14431c8b03084191a3621047"
+    },
+    {
+      "path": "worldcraft/worldcraft.vcxproj",
+      "sha256": "3f0a055bcc6c6cbbb81c4b79be6ceab0c67bd05824e9a8b019f8bc855b539764"
+    },
+    {
+      "path": "worldcraft/OP_Entity.cpp",
+      "sha256": "fad8ec2992ec1c9d2dd9e1e94f5525e55f582c97b44bebe9dbfb65ffe4637828"
+    },
+    {
+      "path": "worldcraft/res/hammer34_print.rc",
+      "sha256": "ef39a796bdc00b5ecc58a00d9b2308e869219c7a442068f62a7584f926c545f4"
+    },
+    {
+      "path": "worldcraft/res/hammer34_dialogs.rc",
+      "sha256": "94167ffd3902293794550d8720f52146a42f2415e3ba424e1a93a5ae14c9f40c"
+    },
+    {
+      "path": "worldcraft/tests/check-native-menu-resources.py",
+      "sha256": "3d1e6c348ed6a5368eaf92c611a75978467058d77cc824b87ad9f8fe6a2b1477"
+    },
+    {
+      "path": "worldcraft/tests/printing_resource_checks.inl",
+      "sha256": "2da940d3ed31d1b6a045d1176fd19dba131cd7f0c1ce8ed4a42a37359cb1ab44"
+    },
+    {
+      "path": "worldcraft/tests/editor_checks.cpp",
+      "sha256": "2317012e38b5568cfe6c6738b168b57ce94f6ac618371efd2addca9713468359"
+    },
+    {
+      "path": "worldcraft/tests/smartedit_checks.inl",
+      "sha256": "e67b5ebe076df2bf0a14e054fa5f54830ecdc24453de0e5457606202ea7a3f32"
+    },
+    {
+      "path": "worldcraft/tests/smartedit_browse_checks.inl",
+      "sha256": "d254bb698cbcae250e877b9cd438185a7286376e23891b42cd94f13c645eaf2d"
+    },
+    {
+      "path": "worldcraft/tests/tool-checks.md",
+      "sha256": "c2cf3f6dee1c238367d4fc57b09ee4270be15fb2dec15481082cbcd25f8b5b1e"
+    }
+  ],
+  "deployment": [
+    {
+      "configuration": "Release",
+      "path": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Release\\utils\\hammer.exe",
+      "sha256": "e83aaa9225be991ddea04f1e2650250cd6dc7e330afd9862c4b32fd7eb554c33",
+      "pdb_sha256": "8519c2caeeb6e7900784a02d2f656364d8802e7b67882e40d2a07593f74f6b7c",
+      "previous": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Release\\utils\\hammer.previous-browse-print-20261025-222501.exe",
+      "previous_sha256": "e3485ec001d604b6725fdd3e2385f8f8b427bfd4bab985ae9955e46ead8eb1d8",
+      "previous_pdb": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Release\\utils\\hammer.previous-browse-print-20261025-222501.pdb"
+    },
+    {
+      "configuration": "Debug",
+      "path": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Debug\\utils\\hammer.exe",
+      "sha256": "b5e0ef39d600553a6197c28295afa8875059d0f8379e8fbd57bfca5587f473c4",
+      "pdb_sha256": "6728154dc8b0b5b791fc3da475bd948b5566417752026055e6801dcd270e06eb",
+      "previous": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Debug\\utils\\hammer.previous-browse-print-20261025-222501.exe",
+      "previous_sha256": "0c84ccebb8678ecdfc68f8b04da3a9e2c3f2bc3f576535b7f6cd8eb0a712aba3",
+      "previous_pdb": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Debug\\utils\\hammer.previous-browse-print-20261025-222501.pdb"
+    }
+  ],
+  "checkpoint_archive": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine-backups\\hammer-browse-print-20261025-222501.zip",
+  "latest_file_dialog_audit": "worldcraft/file-dialog-audit.json",
+  "latest_modal_workflow_audit": "worldcraft/modal-workflow-audit.json",
+  "latest_source_remnant_audit": "worldcraft/source-remnant-audit.json"
+}

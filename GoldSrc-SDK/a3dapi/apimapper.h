@@ -1,0 +1,159 @@
+#pragma once
+
+#include <windows.h>
+#include <mmsystem.h>
+#include <dsound.h>
+#include <ia3dapi.h>
+
+class CA3d;
+class CA3dMapperPrimBuffer;
+
+class CA3dMapper : public IDirectSound, public IA3d2
+{
+public:
+	CA3dMapper( CA3d* pA3d );
+
+	HRESULT STDMETHODCALLTYPE QueryInterface( REFIID iid, void** ppObject );
+	ULONG STDMETHODCALLTYPE AddRef();
+	ULONG STDMETHODCALLTYPE Release();
+	HRESULT STDMETHODCALLTYPE CreateSoundBuffer( LPCDSBUFFERDESC pDesc, LPDIRECTSOUNDBUFFER* ppBuffer,
+		IUnknown* pOuter );
+	HRESULT STDMETHODCALLTYPE GetCaps( LPDSCAPS pCaps );
+	HRESULT STDMETHODCALLTYPE DuplicateSoundBuffer( LPDIRECTSOUNDBUFFER pBuffer,
+		LPDIRECTSOUNDBUFFER* ppDuplicate );
+	HRESULT STDMETHODCALLTYPE SetCooperativeLevel( HWND hWindow, DWORD dwLevel );
+	HRESULT STDMETHODCALLTYPE Compact();
+	HRESULT STDMETHODCALLTYPE GetSpeakerConfig( LPDWORD pdwConfig );
+	HRESULT STDMETHODCALLTYPE SetSpeakerConfig( DWORD dwConfig );
+	HRESULT STDMETHODCALLTYPE Initialize( LPCGUID pDevice );
+	virtual ~CA3dMapper();
+
+	HRESULT STDMETHODCALLTYPE SetOutputMode( DWORD dwFront, DWORD dwBack, DWORD dwQuad );
+	HRESULT STDMETHODCALLTYPE GetOutputMode( LPDWORD pdwFront, LPDWORD pdwBack, LPDWORD pdwQuad );
+	HRESULT STDMETHODCALLTYPE SetResourceManagerMode( DWORD dwMode );
+	HRESULT STDMETHODCALLTYPE GetResourceManagerMode( LPDWORD pdwMode );
+	HRESULT STDMETHODCALLTYPE SetHFAbsorbFactor( FLOAT flFactor );
+	HRESULT STDMETHODCALLTYPE GetHFAbsorbFactor( FLOAT* pflFactor );
+	HRESULT STDMETHODCALLTYPE RegisterVersion( DWORD dwVersion );
+	HRESULT STDMETHODCALLTYPE GetSoftwareCaps( LPA3DCAPS_SOFTWARE pCaps );
+	HRESULT STDMETHODCALLTYPE GetHardwareCaps( LPA3DCAPS_HARDWARE pCaps );
+
+private:
+	CA3d*							m_pA3d;
+	LONG							m_cReferences;
+	CA3dMapperPrimBuffer*	m_pPrimaryBuffer;
+};
+
+class CA3dMapperPrimBuffer : public IDirectSoundBuffer, public IDirectSound3DListener
+{
+public:
+	CA3dMapperPrimBuffer( CA3d* pA3d );
+
+	HRESULT STDMETHODCALLTYPE QueryInterface( REFIID iid, void** ppObject );
+	ULONG STDMETHODCALLTYPE AddRef();
+	ULONG STDMETHODCALLTYPE Release();
+	HRESULT STDMETHODCALLTYPE GetCaps( LPDSBCAPS pCaps );
+	HRESULT STDMETHODCALLTYPE GetCurrentPosition( LPDWORD pdwReadPosition, LPDWORD pdwWritePosition );
+	HRESULT STDMETHODCALLTYPE GetFormat( LPWAVEFORMATEX pFormat, DWORD dwBytes, LPDWORD pdwWritten );
+	HRESULT STDMETHODCALLTYPE GetVolume( LPLONG plVolume );
+	HRESULT STDMETHODCALLTYPE GetPan( LPLONG plPan );
+	HRESULT STDMETHODCALLTYPE GetFrequency( LPDWORD pdwFrequency );
+	HRESULT STDMETHODCALLTYPE GetStatus( LPDWORD pdwStatus );
+	HRESULT STDMETHODCALLTYPE Initialize( LPDIRECTSOUND pDirectSound, LPCDSBUFFERDESC pDesc );
+	HRESULT STDMETHODCALLTYPE Lock( DWORD dwOffset, DWORD dwBytes, LPVOID* ppFirst, LPDWORD pdwFirstBytes,
+		LPVOID* ppSecond, LPDWORD pdwSecondBytes, DWORD dwFlags );
+	HRESULT STDMETHODCALLTYPE Play( DWORD dwReserved, DWORD dwPriority, DWORD dwFlags );
+	HRESULT STDMETHODCALLTYPE SetCurrentPosition( DWORD dwPosition );
+	HRESULT STDMETHODCALLTYPE SetFormat( LPCWAVEFORMATEX pFormat );
+	HRESULT STDMETHODCALLTYPE SetVolume( LONG lVolume );
+	HRESULT STDMETHODCALLTYPE SetPan( LONG lPan );
+	HRESULT STDMETHODCALLTYPE SetFrequency( DWORD dwFrequency );
+	HRESULT STDMETHODCALLTYPE Stop();
+	HRESULT STDMETHODCALLTYPE Unlock( LPVOID pFirst, DWORD dwFirstBytes, LPVOID pSecond, DWORD dwSecondBytes );
+	HRESULT STDMETHODCALLTYPE Restore();
+	virtual ~CA3dMapperPrimBuffer();
+
+	HRESULT STDMETHODCALLTYPE GetAllParameters( LPDS3DLISTENER pParameters );
+	HRESULT STDMETHODCALLTYPE GetDistanceFactor( D3DVALUE* pflFactor );
+	HRESULT STDMETHODCALLTYPE GetDopplerFactor( D3DVALUE* pflFactor );
+	HRESULT STDMETHODCALLTYPE GetOrientation( LPD3DVECTOR pFront, LPD3DVECTOR pTop );
+	HRESULT STDMETHODCALLTYPE GetPosition( LPD3DVECTOR pPosition );
+	HRESULT STDMETHODCALLTYPE GetRolloffFactor( D3DVALUE* pflFactor );
+	HRESULT STDMETHODCALLTYPE GetVelocity( LPD3DVECTOR pVelocity );
+	HRESULT STDMETHODCALLTYPE SetAllParameters( LPCDS3DLISTENER pParameters, DWORD dwApply );
+	HRESULT STDMETHODCALLTYPE SetDistanceFactor( D3DVALUE flFactor, DWORD dwApply );
+	HRESULT STDMETHODCALLTYPE SetDopplerFactor( D3DVALUE flFactor, DWORD dwApply );
+	HRESULT STDMETHODCALLTYPE SetOrientation( D3DVALUE flFrontX, D3DVALUE flFrontY, D3DVALUE flFrontZ,
+		D3DVALUE flTopX, D3DVALUE flTopY, D3DVALUE flTopZ, DWORD dwApply );
+	HRESULT STDMETHODCALLTYPE SetPosition( D3DVALUE flX, D3DVALUE flY, D3DVALUE flZ, DWORD dwApply );
+	HRESULT STDMETHODCALLTYPE SetRolloffFactor( D3DVALUE flFactor, DWORD dwApply );
+	HRESULT STDMETHODCALLTYPE SetVelocity( D3DVALUE flX, D3DVALUE flY, D3DVALUE flZ, DWORD dwApply );
+	HRESULT STDMETHODCALLTYPE CommitDeferredSettings();
+
+	friend class CA3dMapperSecBuffer;
+
+private:
+	CA3d*			m_pA3d;
+	IA3dListener*	m_pListener;
+	LONG			m_cReferences;
+	D3DVALUE		m_flDistanceFactor;
+	D3DVALUE		m_flDopplerFactor;
+	D3DVALUE		m_flRolloffFactor;
+};
+
+class CA3dMapperSecBuffer : public IDirectSoundBuffer, public IDirectSound3DBuffer
+{
+public:
+	CA3dMapperSecBuffer( IA3dSource* pSource, CA3dMapperPrimBuffer* pPrimary, CA3d* pA3d );
+
+	HRESULT STDMETHODCALLTYPE QueryInterface( REFIID iid, void** ppObject );
+	ULONG STDMETHODCALLTYPE AddRef();
+	ULONG STDMETHODCALLTYPE Release();
+	HRESULT STDMETHODCALLTYPE GetCaps( LPDSBCAPS pCaps );
+	HRESULT STDMETHODCALLTYPE GetCurrentPosition( LPDWORD pdwReadPosition, LPDWORD pdwWritePosition );
+	HRESULT STDMETHODCALLTYPE GetFormat( LPWAVEFORMATEX pFormat, DWORD dwBytes, LPDWORD pdwWritten );
+	HRESULT STDMETHODCALLTYPE GetVolume( LPLONG plVolume );
+	HRESULT STDMETHODCALLTYPE GetPan( LPLONG plPan );
+	HRESULT STDMETHODCALLTYPE GetFrequency( LPDWORD pdwFrequency );
+	HRESULT STDMETHODCALLTYPE GetStatus( LPDWORD pdwStatus );
+	HRESULT STDMETHODCALLTYPE Initialize( LPDIRECTSOUND pDirectSound, LPCDSBUFFERDESC pDesc );
+	HRESULT STDMETHODCALLTYPE Lock( DWORD dwOffset, DWORD dwBytes, LPVOID* ppFirst, LPDWORD pdwFirstBytes,
+		LPVOID* ppSecond, LPDWORD pdwSecondBytes, DWORD dwFlags );
+	HRESULT STDMETHODCALLTYPE Play( DWORD dwReserved, DWORD dwPriority, DWORD dwFlags );
+	HRESULT STDMETHODCALLTYPE SetCurrentPosition( DWORD dwPosition );
+	HRESULT STDMETHODCALLTYPE SetFormat( LPCWAVEFORMATEX pFormat );
+	HRESULT STDMETHODCALLTYPE SetVolume( LONG lVolume );
+	HRESULT STDMETHODCALLTYPE SetPan( LONG lPan );
+	HRESULT STDMETHODCALLTYPE SetFrequency( DWORD dwFrequency );
+	HRESULT STDMETHODCALLTYPE Stop();
+	HRESULT STDMETHODCALLTYPE Unlock( LPVOID pFirst, DWORD dwFirstBytes, LPVOID pSecond, DWORD dwSecondBytes );
+	HRESULT STDMETHODCALLTYPE Restore();
+	virtual ~CA3dMapperSecBuffer();
+
+	HRESULT STDMETHODCALLTYPE GetAllParameters( LPDS3DBUFFER pParameters );
+	HRESULT STDMETHODCALLTYPE GetConeAngles( LPDWORD pdwInside, LPDWORD pdwOutside );
+	HRESULT STDMETHODCALLTYPE GetConeOrientation( LPD3DVECTOR pOrientation );
+	HRESULT STDMETHODCALLTYPE GetConeOutsideVolume( LPLONG plVolume );
+	HRESULT STDMETHODCALLTYPE GetMaxDistance( D3DVALUE* pflDistance );
+	HRESULT STDMETHODCALLTYPE GetMinDistance( D3DVALUE* pflDistance );
+	HRESULT STDMETHODCALLTYPE GetMode( LPDWORD pdwMode );
+	HRESULT STDMETHODCALLTYPE GetPosition( LPD3DVECTOR pPosition );
+	HRESULT STDMETHODCALLTYPE GetVelocity( LPD3DVECTOR pVelocity );
+	HRESULT STDMETHODCALLTYPE SetAllParameters( LPCDS3DBUFFER pParameters, DWORD dwApply );
+	HRESULT STDMETHODCALLTYPE SetConeAngles( DWORD dwInside, DWORD dwOutside, DWORD dwApply );
+	HRESULT STDMETHODCALLTYPE SetConeOrientation( D3DVALUE flX, D3DVALUE flY, D3DVALUE flZ, DWORD dwApply );
+	HRESULT STDMETHODCALLTYPE SetConeOutsideVolume( LONG lVolume, DWORD dwApply );
+	HRESULT STDMETHODCALLTYPE SetMaxDistance( D3DVALUE flDistance, DWORD dwApply );
+	HRESULT STDMETHODCALLTYPE SetMinDistance( D3DVALUE flDistance, DWORD dwApply );
+	HRESULT STDMETHODCALLTYPE SetMode( DWORD dwMode, DWORD dwApply );
+	HRESULT STDMETHODCALLTYPE SetPosition( D3DVALUE flX, D3DVALUE flY, D3DVALUE flZ, DWORD dwApply );
+	HRESULT STDMETHODCALLTYPE SetVelocity( D3DVALUE flX, D3DVALUE flY, D3DVALUE flZ, DWORD dwApply );
+
+	friend class CA3dMapper;
+
+private:
+	LONG			m_cReferences;
+	IA3dSource*		m_pSource;
+	CA3d*			m_pA3d;
+	LONG			m_lVolume;
+};

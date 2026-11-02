@@ -1,0 +1,123 @@
+{
+  "recorded_utc": "2026-10-25T20:21:37.475686+00:00",
+  "status": "Validated pointfile, Expert command and prefab modal checkpoint; full restoration remains active.",
+  "reference": {
+    "path": "D:/SteamLibrary/steamapps/common/Half-Life SDK/Hammer Editor/hammer.exe",
+    "sha256": "ceef56a702c28eaade3c4b2d24722fe161ccff5a36580852a57e2c03dd3c90f3",
+    "database": "bin/obj/hammer/native-reference/hammer.native.i64",
+    "method": "Fresh native IDA bodies, raw disassembly and offline PE type table; exact frozen evidence in bin/obj/hammer/tool-parity."
+  },
+  "fixed": "Restored native .lin default derivation for Quake II map configurations; Half-Life derives .pts. The remembered path and .pts browse extension remain native.",
+  "verification": {
+    "builds": "Release and Debug project Build with RunCodeAnalysis=true exited zero after the one-function production change; prior full Rebuilds cover unchanged class declarations. Existing warnings remain.",
+    "runtime": "Both complete editor harnesses exited zero, including all existing checks and cases72,73,74.",
+    "pointfiles": "Real PTS/LIN selection, cancellation, exact coordinates, remembered Yes/No questions, navigation/index wrapping, repeated unload and missing-file defaults across map/config changes.",
+    "expert": "Real executable Browse cancel/accept through production command dispatch, four special commands and five program placeholders. No command executes.",
+    "prefabs": "Actual Add cancel and accepted MAP/RMF imports; actual Export cancel and both formats for each imported object, with reparsed six-face geometry and restored library/cache state.",
+    "prefab_names": "Owned fixture names are changed through real editable-label notifications before export. Native Init453D70 also copies/truncates full import paths; no automatic basename conversion was invented.",
+    "resources": "All51 native dialog IDs and existing native menu/shortcut/toolbar/Help/print-resource comparisons pass with the documented About title adapter.",
+    "logs": [
+      {
+        "path": "bin\\obj\\hammer\\pointfile-release.log",
+        "sha256": "7df1bbf0bffbd35980ba18f839a40f940e5bdcd7bf3706f95ca0a04a490c1629"
+      },
+      {
+        "path": "bin\\obj\\hammer\\pointfile-release-console.log",
+        "sha256": "533ebe58243eea07856c83b970db5101e0469c24e8a9eced7abe5641e6d35b9d"
+      },
+      {
+        "path": "bin\\obj\\hammer\\pointfile-release-checks.log",
+        "sha256": "27867efe20546a1596cdbf1f4b09b60802150ab8dcdf20e19aebd6b0ad955ce1"
+      },
+      {
+        "path": "bin\\obj\\hammer\\pointfile-debug.log",
+        "sha256": "0a391d9bb0ca23836b4162170d68b0f522101a546ea88cf7724ff75c6304d6de"
+      },
+      {
+        "path": "bin\\obj\\hammer\\pointfile-debug-console.log",
+        "sha256": "27eace183fcbde096a9a65be7c9264cb83aa78fa239d642681f3c45f16d55fe7"
+      },
+      {
+        "path": "bin\\obj\\hammer\\pointfile-debug-checks.log",
+        "sha256": "e457bd92fcfc0dec8455212dcdf7e72e358d7eeb33e7b46901d5f7774c11b03e"
+      }
+    ],
+    "evidence": [
+      "bin/obj/hammer/tool-parity/pointfile-default-followup.json",
+      "bin/obj/hammer/tool-parity/native-pointfile-navigation.json",
+      "bin/obj/hammer/tool-parity/native-file-dialog-callers.json",
+      "bin/obj/hammer/tool-parity/prefab-dialog-fixture.json",
+      "bin/obj/hammer/tool-parity/native-prefab-import-name.json"
+    ]
+  },
+  "remaining": [
+    "Pointfile view centering is outside the isolated no-view fixture; full camera centering needs further comparison.",
+    "Expert normal startup, sequence loading/persistence and process execution are outside the command fixture.",
+    "Nested prefab/group/history and all library editing/rename/error workflows remain unverified.",
+    "Eight extra Source RMF class registrations and six Source-only internal tool slots remain to remove; full native10-class registry proof is frozen.",
+    "Source nodeid injection remains reachable; native entity lifecycle comparison is ongoing.",
+    "Native WAD5 and recursive WAL directory support differs from the current WAD3-only loader; full pixel/palette paths need audit. Normal PACK files are rejected by the SDK reference despite its filter.",
+    "Long default-name dialogs, long-CWD/CRT failures, DPI/pixels/modal timing, print rendering/output and existing warning debt remain."
+  ],
+  "custom_behavior_preserved": "RMFs open without WADs and missing textures render white.",
+  "files": [
+    {
+      "path": "worldcraft/mapdoc.cpp",
+      "sha256": "7928fa1bca38a0d2bd5cb596849ab86777bc78039f90abcc61c94c023c4aa047"
+    },
+    {
+      "path": "worldcraft/tests/editor_checks.cpp",
+      "sha256": "c8ce7c21f59667cb4fd87852f74e89a7a1e0fc76e4a35fac1cf05116af2c5351"
+    },
+    {
+      "path": "worldcraft/tests/pointfile_dialog_checks.inl",
+      "sha256": "565d2e7007d7fe23f963df6132024ff0301d81a409186be3e5331da7b9bee1df"
+    },
+    {
+      "path": "worldcraft/tests/expert_dialog_checks.inl",
+      "sha256": "6e408fcfa8473e8d35bcaf28865fb5587a81381a5628d2504b4970eb143ac6e7"
+    },
+    {
+      "path": "worldcraft/tests/prefab_dialog_checks.inl",
+      "sha256": "fedd9eac14b0e928505adbe320a826225a37302fc6fecada234dedb6139e87bc"
+    },
+    {
+      "path": "worldcraft/tests/tool-checks.md",
+      "sha256": "e9fd7999939060f3d26e14a87050fd3bc52ea67bb22fed717bfbdfc1a43b6979"
+    }
+  ],
+  "deployment": [
+    {
+      "configuration": "Release",
+      "exe": {
+        "path": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Release\\utils\\hammer.exe",
+        "sha256": "16570fc9ed134fcf19d70ade6bb68940d894aed1da51584fe0e9ffdfc8186ca8",
+        "previous": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Release\\utils\\hammer.previous-modal-workflows-20261025-232134.exe",
+        "previous_sha256": "98d72f75d5c0ab4be2e1aa4a5695dd4bbf419749f57eb08f93d32fc1fb3e1dc0"
+      },
+      "pdb": {
+        "path": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Release\\utils\\hammer.pdb",
+        "sha256": "630df40144135f5a134aee7504c1627acf730e643397ee2f95f7d6bb4ccc9bea",
+        "previous": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Release\\utils\\hammer.previous-modal-workflows-20261025-232134.pdb",
+        "previous_sha256": "77eac46861b2067d744c5db0fb2724d7bd3d4c137c00518d5ad280b08b8f9f75"
+      }
+    },
+    {
+      "configuration": "Debug",
+      "exe": {
+        "path": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Debug\\utils\\hammer.exe",
+        "sha256": "443f94d896d8c28a1487fe8136319a6e281ed8aeae6f117cee1c24e3072e304f",
+        "previous": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Debug\\utils\\hammer.previous-modal-workflows-20261025-232134.exe",
+        "previous_sha256": "65a4ee5266baaecc1609a5cdb1b56f4ed39c33d5f52224c3d4689b3824848886"
+      },
+      "pdb": {
+        "path": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Debug\\utils\\hammer.pdb",
+        "sha256": "749a19732d5242d9aac262beb9149183ec515ee98d45ce112854acbfb663d26b",
+        "previous": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Debug\\utils\\hammer.previous-modal-workflows-20261025-232134.pdb",
+        "previous_sha256": "c40a71a727db7b415af4108f099073646d4814b611ba21c9ec9915094d36f39c"
+      }
+    }
+  ],
+  "checkpoint_archive": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine-backups\\hammer-modal-workflows-20261025-232134.zip",
+  "latest_source_remnant_audit": "worldcraft/source-remnant-audit.json"
+}

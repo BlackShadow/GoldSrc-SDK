@@ -1,0 +1,166 @@
+{
+  "recorded_utc": "2026-10-25T19:58:21.390218+00:00",
+  "status": "Validated common file-dialog checkpoint; full VHE restoration remains active.",
+  "reference": {
+    "path": "D:/SteamLibrary/steamapps/common/Half-Life SDK/Hammer Editor/hammer.exe",
+    "sha256": "ceef56a702c28eaade3c4b2d24722fe161ccff5a36580852a57e2c03dd3c90f3",
+    "database": "bin/obj/hammer/native-reference/hammer.native.i64",
+    "method": "Fresh native IDA bodies, raw disassembly and offline PE type table; exact frozen evidence in bin/obj/hammer/tool-parity."
+  },
+  "fixed": [
+    "All eleven application file-dialog sites explicitly use the legacy host and preserve native caller flags and parent ownership.",
+    "The current MFC sizing adapter matches the original constructor-added flag; custom MAP/DXF dialogs restore it after the base constructor clears it.",
+    "MAP/DXF export uses original custom template109 and default Save As title. Removed Source-only current-workfile collision warning.",
+    "Open and Save As use native per-invocation current-directory changes and restore the previous working directory, without Source remembered-directory caches or lpstrInitialDir.",
+    "Open falls back through the current game map directory, the legacy default map-directory pointer, then an empty path.",
+    "Export Again uses the shared MAP target and visible-only state across documents; before the first MAP export it shows the original warning instead of opening Export.",
+    "Restored exact native FGD extension, WAD/PAK filter and prefab RMF caption without changing loaders."
+  ],
+  "verification": {
+    "builds": "Full Win32 Release and Debug Rebuild graphs exited zero with RunCodeAnalysis=true. Existing warnings remain.",
+    "runtime": "Both complete editor harnesses exited zero, including cases69,70,71 and all existing regression cases.",
+    "export": "Eight real MAP/DXF dialogs per harness, real accepted output parsed for geometry, checkbox defaults/persistence/cancellation; actual startup Export Again warning plus two dialog-free cross-document exports to one shared target.",
+    "options": "Actual Build Programs, FGD and WAD dialogs: filters, extensions, caller/framework flags, cancellation preserving list state, and real Build Programs acceptance without program execution.",
+    "map": "Eight actual Open/Save As dialogs: fresh map directories, accepted RMF/MAP saves and parsed geometry, Open config/default/null fallbacks, CWD restoration and document path/modified state.",
+    "resources": "All51 native dialog IDs remain present; fifty match raw bytes and About100 uses only the documented SDK title adapter. Selected native menus, accelerators, toolbar, print strings/cursor and Help resources pass.",
+    "scope": "Thread-scoped hooks inspect actual dialog metadata and controls; real filename submission and IDOK drive accepted saves. No desktop input or fake successful dialog return. Fixtures restore state and remove owned temporary files.",
+    "logs": [
+      {
+        "path": "bin\\obj\\hammer\\file-dialog-release.log",
+        "sha256": "d463338df4fe50310e81522b2a2f520b27ac4f2a1d6e7798d40451de491f5c92"
+      },
+      {
+        "path": "bin\\obj\\hammer\\file-dialog-release-checks.log",
+        "sha256": "d5b95f73b181584e1c06db5b44fc1185af7408cafcb5618d4fa4621c87b0a4b0"
+      },
+      {
+        "path": "bin\\obj\\hammer\\file-dialog-release-console.log",
+        "sha256": "7e4319d32b6e4e0019a3433d3814050480f54fb78f61b08f372b0ba5ba012361"
+      },
+      {
+        "path": "bin\\obj\\hammer\\file-dialog-debug.log",
+        "sha256": "f8cf5ebc165985ad0c58f22d36b29fa0736620f7d2b5a735d8bcd4554373400a"
+      },
+      {
+        "path": "bin\\obj\\hammer\\file-dialog-debug-checks.log",
+        "sha256": "c3a2d9cc8758c73ceacb6c9254e2035ef8bf788f973d8f1c65d8c12a541477fa"
+      },
+      {
+        "path": "bin\\obj\\hammer\\file-dialog-debug-console.log",
+        "sha256": "3bdaebcb166c564b393a311361aa5c2e13599a79dcd3cef025ee7e1ba56889bc"
+      }
+    ],
+    "evidence": [
+      "bin/obj/hammer/tool-parity/native-file-dialog-callers.json",
+      "bin/obj/hammer/tool-parity/native-file-dialog-strings.json",
+      "bin/obj/hammer/tool-parity/native-export-dialog-init.json",
+      "bin/obj/hammer/tool-parity/native-default-map-directory.json",
+      "bin/obj/hammer/tool-parity/native-export-again.json",
+      "bin/obj/hammer/tool-parity/native-export-again-warning.json",
+      "bin/obj/hammer/tool-parity/common-file-dialog-restored-inventory.json"
+    ]
+  },
+  "remaining": [
+    "Accepted Prefab, Expert executable and pointfile modal paths need further native comparison.",
+    "Native pointfile derivation uses .lin for mfQuake2; current source always derives .pts. The frozen pointfile-default-followup.json records the confirmed branch for the next tool-parity change.",
+    "The restored WAD/PAK filename filter does not establish PAK decoding; the existing loader handles WAD3.",
+    "Save As with an existing path, long-CWD/CRT failures and exhaustive Windows dialog timing remain unverified.",
+    "Other entity-page and dormant picker behavior, cordon/view visibility, movement/history edge cases and nested prefab/group workflows remain under audit.",
+    "Full print-preview rendering, physical printer output and exhaustive font/DPI/pixel parity remain unproven.",
+    "Existing compiler and Code Analysis warnings remain."
+  ],
+  "custom_behavior_preserved": "RMFs open without WADs and missing textures render white.",
+  "files": [
+    {
+      "path": "worldcraft/mapdoc.cpp",
+      "sha256": "933e0523fec8fefbe4b7a372911939f51241ca5961626cf6fcafdac9af793851"
+    },
+    {
+      "path": "worldcraft/mapdoc.h",
+      "sha256": "c309a5bfbdb0d168a6d4771f723caee95c98ce908936ec3e94ba9d88da8b882c"
+    },
+    {
+      "path": "worldcraft/options.h",
+      "sha256": "d298606624d5eb4e8d3d51447ad2843b65c6b42d3fe2860515d8c189b7d0a462"
+    },
+    {
+      "path": "worldcraft/worldcraft.cpp",
+      "sha256": "3fbe7daec4866cb5e66c7f631d600d434bce6bda1aa3aa02d9bb1ebc248335ae"
+    },
+    {
+      "path": "worldcraft/prefabsdlg.cpp",
+      "sha256": "5934df48d81d233602ae9b900da88099186b1ce9ae84988b6bd2c30071036ed9"
+    },
+    {
+      "path": "worldcraft/optbuild.cpp",
+      "sha256": "ad4f546663bf881f9fc9e59e8279324e19132062d2925d133cfd4027859cfd28"
+    },
+    {
+      "path": "worldcraft/optconfigs.cpp",
+      "sha256": "7d64e868a1042db46c98fc07013bdb4771b4b32ca3255287243b08820ea17c88"
+    },
+    {
+      "path": "worldcraft/opttextures.cpp",
+      "sha256": "efb5cd4f31f8c355e64de1e0e0af9453af9c29e6c98d1fc22e18e6bb2617d0ed"
+    },
+    {
+      "path": "worldcraft/runmapexpertdlg.cpp",
+      "sha256": "0b1608530c96ae88416a7d7486757026bb8a8d21597dd11ccb9b52d8a11fa6de"
+    },
+    {
+      "path": "worldcraft/tests/editor_checks.cpp",
+      "sha256": "b4fa7a3aed7a2f5432a5eb9d1fbc14310d4f2e1ba47f283cf03fbbf5a670d822"
+    },
+    {
+      "path": "worldcraft/tests/file_dialog_checks.inl",
+      "sha256": "44f8b4bb3fc083ab132b5d5408769290126aa2b38869eec75ca8e4a5e59c65bb"
+    },
+    {
+      "path": "worldcraft/tests/map_file_dialog_checks.inl",
+      "sha256": "3502b4f248e77e170f65063f279142f79332409c7c54fb0b1aa7ef4deeb16c52"
+    },
+    {
+      "path": "worldcraft/tests/option_file_dialog_checks.inl",
+      "sha256": "8d225c976c33b55adfa5c4fb7c791832449150e551182252f1aa4a05359ba140"
+    },
+    {
+      "path": "worldcraft/tests/tool-checks.md",
+      "sha256": "8c8cd7e7bbe8af5fb72a4174f6dcee21b185792e5d4c06df78e34ea5c5fa3f51"
+    }
+  ],
+  "deployment": [
+    {
+      "configuration": "Release",
+      "exe": {
+        "path": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Release\\utils\\hammer.exe",
+        "sha256": "98d72f75d5c0ab4be2e1aa4a5695dd4bbf419749f57eb08f93d32fc1fb3e1dc0",
+        "previous": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Release\\utils\\hammer.previous-file-dialog-20261025-225817.exe",
+        "previous_sha256": "e83aaa9225be991ddea04f1e2650250cd6dc7e330afd9862c4b32fd7eb554c33"
+      },
+      "pdb": {
+        "path": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Release\\utils\\hammer.pdb",
+        "sha256": "77eac46861b2067d744c5db0fb2724d7bd3d4c137c00518d5ad280b08b8f9f75",
+        "previous": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Release\\utils\\hammer.previous-file-dialog-20261025-225817.pdb",
+        "previous_sha256": "8519c2caeeb6e7900784a02d2f656364d8802e7b67882e40d2a07593f74f6b7c"
+      }
+    },
+    {
+      "configuration": "Debug",
+      "exe": {
+        "path": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Debug\\utils\\hammer.exe",
+        "sha256": "65a4ee5266baaecc1609a5cdb1b56f4ed39c33d5f52224c3d4689b3824848886",
+        "previous": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Debug\\utils\\hammer.previous-file-dialog-20261025-225817.exe",
+        "previous_sha256": "b5e0ef39d600553a6197c28295afa8875059d0f8379e8fbd57bfca5587f473c4"
+      },
+      "pdb": {
+        "path": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Debug\\utils\\hammer.pdb",
+        "sha256": "c40a71a727db7b415af4108f099073646d4814b611ba21c9ec9915094d36f39c",
+        "previous": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine\\bin\\Win32\\Debug\\utils\\hammer.previous-file-dialog-20261025-225817.pdb",
+        "previous_sha256": "6728154dc8b0b5b791fc3da475bd948b5566417752026055e6801dcd270e06eb"
+      }
+    }
+  ],
+  "checkpoint_archive": "C:\\Users\\ASUSPC\\Desktop\\HL25-Engine-backups\\hammer-file-dialog-20261025-225817.zip",
+  "latest_modal_workflow_audit": "worldcraft/modal-workflow-audit.json",
+  "latest_source_remnant_audit": "worldcraft/source-remnant-audit.json"
+}

@@ -1,0 +1,6 @@
+#include <winresrc.h>
+
+#define IDI_HLTV 101
+
+LANGUAGE LANG_GERMAN, SUBLANG_GERMAN
+IDI_HLTV ICON "hltv.ico"

@@ -1,0 +1,39 @@
+//========= Copyright © 1996-2002, Valve LLC, All rights reserved. ============
+//
+// Purpose: 
+//
+// $NoKeywords: $
+//=============================================================================
+
+#pragma once
+
+#include "interface.h"
+#include "vgui/VGUI.h"
+
+//-----------------------------------------------------------------------------
+// Purpose: Standard interface to loading vgui modules
+//-----------------------------------------------------------------------------
+class IVGuiModule : public IBaseInterface
+{
+public:
+	// called first to setup the module with the vgui
+	// returns true on success, false on failure
+	virtual bool Initialize( CreateInterfaceFn* factories, int count ) = 0;
+	// called after all the modules have been initialized
+	// modules should use this time to link to all the other module interfaces
+	virtual bool PostInitialize( CreateInterfaceFn* factories, int count ) = 0;
+	// called when the module is selected from the menu or otherwise activated
+	virtual bool Activate() = 0;
+	// returns true if the module is successfully initialized and available
+	virtual bool IsValid() = 0;
+	// requests that the UI is temporarily disabled and all data files saved
+	virtual void Deactivate() = 0;
+	// restart from a Deactivate()
+	virtual void Reactivate() = 0;
+	// called when the module is about to be shutdown
+	virtual void Shutdown() = 0;
+	// returns a handle to the main module panel
+	virtual vgui2::VPANEL GetPanel() = 0;
+	virtual void SetParent( vgui2::VPANEL parent ) = 0;
+	virtual void RunFrame() = 0;
+};

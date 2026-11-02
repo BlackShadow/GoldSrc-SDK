@@ -382,9 +382,6 @@
   <ItemGroup>
     <ResourceCompile Include="worldcraft.rc" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="hammer34-evidence.json" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ItemGroup>
     <ClCompile Include="glcontext.cpp" />
@@ -403,7 +400,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".clang-format" />
-    <None Include="goldsrc-removal.json" />
     <None Include="res\hammer34_dialogs.rc" />
     <None Include="res\hammer34_print.rc" />
     <Image Include="res\hammer34_splash.bmp" />

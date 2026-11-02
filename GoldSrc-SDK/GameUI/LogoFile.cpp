@@ -2,7 +2,7 @@
 
 #include "FileSystem.h"
 #include "const.h"
-#include "UtlBuffer.h"
+#include "../engine/utlbuffer.h"
 #include "vgui_controls/Controls.h"
 
 #include <malloc.h>

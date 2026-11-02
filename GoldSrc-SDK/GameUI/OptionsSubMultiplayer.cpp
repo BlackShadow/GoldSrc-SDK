@@ -21,7 +21,7 @@
 #include "FileSystem.h"
 #include "ImagePanel.h"
 #include "Label.h"
-#include "utlbuffer.h"
+#include "../engine/utlbuffer.h"
 #include "utlrbtree.h"
 #include "utlsymbol.h"
 #include "vgui/ISurface.h"

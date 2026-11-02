@@ -12,7 +12,7 @@
 #include "QueryBox.h"
 #include "FileSystem.h"
 #include "IKeyValues.h"
-#include "UtlBuffer.h"
+#include "../engine/utlbuffer.h"
 #include "igameuifuncs.h"
 #include "keydefs.h"
 #include "vgui/Cursor.h"

@@ -60,6 +60,7 @@ public:
 
 	const void* Base() const;
 	void* Base();
+	int Size() const { return m_Memory.NumAllocated(); }
 	bool IsText() const;
 	bool IsValid() const;
 

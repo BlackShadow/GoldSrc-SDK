@@ -1,0 +1,79 @@
+#include "VGUI_Scheme.h"
+
+#include "VGUI_Cursor.h"
+#include "VGUI_Font.h"
+
+namespace vgui
+{
+
+void Scheme::setColor( SchemeColor sc, int r, int g, int b, int a )
+{
+	_color[sc][0] = r;
+	_color[sc][1] = g;
+	_color[sc][2] = b;
+	_color[sc][3] = a;
+}
+
+void Scheme::getColor( SchemeColor sc, int& r, int& g, int& b, int& a )
+{
+	r = _color[sc][0];
+	g = _color[sc][1];
+	b = _color[sc][2];
+	a = _color[sc][3];
+}
+
+void Scheme::setFont( SchemeFont sf, Font* font )
+{
+	if ( font != NULL )
+		_font[sf] = font;
+}
+
+Font* Scheme::getFont( SchemeFont sf )
+{
+	return _font[sf];
+}
+
+void Scheme::setCursor( SchemeCursor scu, Cursor* cursor )
+{
+	if ( cursor != NULL )
+		_cursor[scu] = cursor;
+}
+
+Cursor* Scheme::getCursor( SchemeCursor scu )
+{
+	return _cursor[scu];
+}
+
+Scheme::Scheme()
+{
+	setColor( sc_user, 0, 0, 0, 0 );
+	setColor( sc_black, 0, 0, 0, 0 );
+	setColor( sc_white, 255, 255, 255, 0 );
+	setColor( sc_primary1, 102, 102, 153, 0 );
+	setColor( sc_primary2, 153, 153, 204, 0 );
+	setColor( sc_primary3, 204, 204, 255, 0 );
+	setColor( sc_secondary1, 102, 102, 102, 0 );
+	setColor( sc_secondary2, 153, 153, 153, 0 );
+	setColor( sc_secondary3, 204, 204, 204, 0 );
+
+	setFont( sf_primary1, new Font( "Arial", NULL, 0, 20, 0, 0.0f, 400, false, false, false, false ) );
+	setFont( sf_primary2, new Font( "FixedSys", NULL, 0, 18, 0, 0.0f, 400, false, false, false, false ) );
+	setFont( sf_primary3, new Font( "Arial", NULL, 0, 12, 0, 0.0f, 400, false, false, false, false ) );
+	setFont( sf_secondary1, new Font( "Marlett", NULL, 0, 16, 0, 0.0f, 0, false, false, false, true ) );
+
+	setCursor( scu_none, new Cursor( Cursor::DefaultCursor::dc_none ) );
+	setCursor( scu_arrow, new Cursor( Cursor::DefaultCursor::dc_arrow ) );
+	setCursor( scu_ibeam, new Cursor( Cursor::DefaultCursor::dc_ibeam ) );
+	setCursor( scu_hourglass, new Cursor( Cursor::DefaultCursor::dc_hourglass ) );
+	setCursor( scu_crosshair, new Cursor( Cursor::DefaultCursor::dc_crosshair ) );
+	setCursor( scu_up, new Cursor( Cursor::DefaultCursor::dc_up ) );
+	setCursor( scu_sizenwse, new Cursor( Cursor::DefaultCursor::dc_sizenwse ) );
+	setCursor( scu_sizenesw, new Cursor( Cursor::DefaultCursor::dc_sizenesw ) );
+	setCursor( scu_sizewe, new Cursor( Cursor::DefaultCursor::dc_sizewe ) );
+	setCursor( scu_sizens, new Cursor( Cursor::DefaultCursor::dc_sizens ) );
+	setCursor( scu_sizeall, new Cursor( Cursor::DefaultCursor::dc_sizeall ) );
+	setCursor( scu_no, new Cursor( Cursor::DefaultCursor::dc_no ) );
+	setCursor( scu_hand, new Cursor( Cursor::DefaultCursor::dc_hand ) );
+}
+
+}

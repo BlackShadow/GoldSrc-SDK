@@ -1,0 +1,18 @@
+LIBRARY mss32.dll
+EXPORTS
+	AIL_close_digital_driver@4 EXPORTAS _AIL_close_digital_driver@4
+	AIL_close_stream@4 EXPORTAS _AIL_close_stream@4
+	AIL_open_digital_driver@16 EXPORTAS _AIL_open_digital_driver@16
+	AIL_open_stream@12 EXPORTAS _AIL_open_stream@12
+	AIL_pause_stream@8 EXPORTAS _AIL_pause_stream@8
+	AIL_sample_playback_rate@4 EXPORTAS _AIL_sample_playback_rate@4
+	AIL_set_preference@8 EXPORTAS _AIL_set_preference@8
+	AIL_set_redist_directory@4 EXPORTAS _AIL_set_redist_directory@4
+	AIL_set_sample_volume_pan@12 EXPORTAS _AIL_set_sample_volume_pan@12
+	AIL_set_stream_loop_count@8 EXPORTAS _AIL_set_stream_loop_count@8
+	AIL_set_stream_user_data@12 EXPORTAS _AIL_set_stream_user_data@12
+	AIL_shutdown@0 EXPORTAS _AIL_shutdown@0
+	AIL_start_stream@4 EXPORTAS _AIL_start_stream@4
+	AIL_startup@0 EXPORTAS _AIL_startup@0
+	AIL_stream_sample_handle@4 EXPORTAS _AIL_stream_sample_handle@4
+	AIL_stream_status@4 EXPORTAS _AIL_stream_status@4

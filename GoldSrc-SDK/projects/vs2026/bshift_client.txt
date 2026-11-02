@@ -1,0 +1,94 @@
+Blue Shift client reconstruction
+===============================
+
+Build bshift_cdll in projects.sln using Visual Studio 2026, v145, Win32,
+Debug or Release. The project compiles all 121 application translation units
+recovered from the loaded Blue Shift client.so. The ELF also records four
+compiler/runtime files; these are supplied by the Windows toolchain.
+
+Outputs, relative to the source root:
+  bin/Win32/Debug/bshift/cl_dlls/client.dll
+  bin/Win32/Release/bshift/cl_dlls/client.dll
+  bin/obj/bshift_cdll/Win32/<Configuration>/
+
+Source ownership:
+  bshift/cl_dll: client callbacks, HUD, input/view, prediction, rendering and
+    the native VGUI bridge in VGUI/.
+  bshift/vgui2/game_controls: native viewport, scoreboard, command/menu,
+    spectator, MOTD and tutor controls absent from the existing SDK.
+  bshift/vgui2/controls: native ImageList and SectionedListPanel, plus the
+    client module's controls-interface initialization.
+  bshift/game_shared: participating voice status, voice HUD and ban manager.
+  bshift/dlls and bshift/pm_shared: existing reconstructed weapons and movement
+    units reused by prediction. The server project and output remain separate.
+
+Existing Half-Life source is reused where applicable. Shared controls and
+utility implementations remain at their established root paths. KeyValues,
+MemPool and UtlBuffer use the engine implementations compatible with those
+controls; source-mapping.csv records these substitutions. Common helper
+headers are referenced at their real locations rather than copied wholesale.
+The three recovered viewport interface headers are justified cross-file
+contracts even though their filenames do not appear in the retained ELF
+debug-file strings.
+
+BSHIFT_CLIENT selects the original client control behavior in shared sources.
+It excludes the newer Panel HD field, Frame open/close sounds and Label image
+scaling. The client font compatibility helper calls the original GetFont API.
+Client Panel is 112 bytes, EditablePanel 164 and Frame 268, matching the native
+layouts. Label's wchar_t-dependent layout follows the destination Windows ABI.
+The ordinary engine branches retain their existing behavior; Panel/Frame
+assembly and Label preprocessed-code comparisons are recorded externally.
+Other bounded shared additions complete existing PHandle/DHANDLE and linked
+list helper contracts and allow the native tutor's image background access.
+
+Confirmed client differences include blue HUD colors/positions, per-message
+fonts and HudTextPro, the 43-entry engine callback table, older prediction and
+event behavior, and the VGUI2 viewport/interfaces. Unsupported newer HUD,
+browser, preference, TFC renderer and HD paths were trimmed. Further mouse
+input auditing was stopped at the user's request.
+
+The engine already handles Blue Shift BSPs: entities and planes are swapped in
+Mod_LoadBrushModel and CRC_MapFile. LUMP_NODES is unchanged. No client BSP
+loader or new map-format patch was added.
+
+Validation checkpoint, 2026-10-16:
+  Debug and Release build through projects.sln with all 121 intended units.
+  New/modified slices also compile with /W4 /WX. Some inherited SDK/header
+    diagnostic categories require documented exclusions; this is not a claim
+    that the complete shared SDK builds warning-free under /W4.
+  Original Windows client: 229 checks, zero failures.
+  Reconstructed Debug: 228 checks, zero failures.
+  Reconstructed Release: 228 checks, zero failures.
+  Exact Windows export name sets: 76 plain and 19 decorated names.
+  All 31 native prediction factory exports present, no extras.
+  Interface versions/identity, all 43 callback slots, engine-version rejection,
+    19 event hooks, hull no-write behavior and complete local/player/prediction
+    transfer fingerprints checked against the original in separate processes.
+  Native manifest audit: no missing, unsupported, uncompiled or broken paths.
+
+The one-check count difference is intentional platform behavior: the Windows
+original probes Friends/TrackerUI.dll in addition to particleman.dll. The
+analyzed ELF initialization only probes particleman; the reconstruction keeps
+that behavior. Observable probe results otherwise match after that explicitly
+excluded optional-module lookup/count difference.
+
+These checks do not test a running campaign, rendering, UI interaction,
+movement, audio or save/load parity. Original quirks are preserved, including
+the viewport's distinct player-info view and unresolved qualified message-map
+base names. Detailed native evidence and limits are outside production source.
+The installed game and original binaries were not changed.
+
+Evidence:
+  C:/Users/ASUSPC/Desktop/HL25-BShift-Client-20261016/
+  validation/binary-validation.csv
+  validation/source-manifest-audit.log
+  validation/control-abi-audit.txt
+  evidence/*/ (native snapshots, layout and strict compilation receipts)
+  solution-debug.log and solution-release.log
+
+Original analyzed client.so SHA-256:
+  8D20F490668FE6733C2A76D5A8989CEC06EEF1CD0E27C22AEE4073BE6402B44C
+Final Debug client.dll SHA-256:
+  99B972B7E3AFEDFB8B5377BC18EC2088A63EF9F597D5703E02CF50886D05ADA2
+Final Release client.dll SHA-256:
+  6253A40D706D5FED6AE5139D86DB1263A02303FDD8F2EF185969180F55F80285

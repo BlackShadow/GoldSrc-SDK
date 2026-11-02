@@ -1,0 +1,66 @@
+#ifndef VGUI_BUTTON_H
+#define VGUI_BUTTON_H
+
+#include "VGUI.h"
+#include "VGUI_Label.h"
+#include "VGUI_Dar.h"
+#include "VGUI_MouseCode.h"
+
+namespace vgui
+{
+
+class ButtonGroup;
+class ActionSignal;
+class ButtonController;
+
+class VGUIAPI Button : public Label
+{
+public:
+	Button( const char* text, int x, int y, int wide, int tall );
+	Button( const char* text, int x, int y );
+
+	virtual void setSelected( bool state );
+	virtual void setSelectedDirect( bool state );
+	virtual void setArmed( bool state );
+	virtual bool isSelected();
+	virtual void doClick();
+
+	virtual void addActionSignal( ActionSignal* s );
+	virtual void setButtonGroup( ButtonGroup* buttonGroup );
+	virtual bool isArmed();
+	virtual void setButtonBorderEnabled( bool state );
+
+	virtual void setMouseClickEnabled( MouseCode code, bool state );
+	virtual bool isMouseClickEnabled( MouseCode code );
+	virtual void fireActionSignal();
+
+protected:
+	virtual void setButtonController( ButtonController* buttonController );
+
+public:
+	virtual Panel* createPropertyPanel() override;
+
+protected:
+	virtual void paintBackground() override;
+
+private:
+	void init();
+
+protected:
+	char*				_text;
+	bool				_armed;
+	bool				_selected;
+	bool				_buttonBorderEnabled;
+
+	Dar<ActionSignal*>	_actionSignalDar;
+	int					_mouseClickMask;
+	ButtonGroup*		_buttonGroup;
+	ButtonController*	_buttonController;
+
+public:
+	Button& operator=( const Button& ) = default;
+};
+
+}
+
+#endif

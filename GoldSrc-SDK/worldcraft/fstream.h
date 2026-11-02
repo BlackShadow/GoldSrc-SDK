@@ -1,0 +1,12 @@
+#pragma once
+#include <fstream>
+#include <iomanip>
+using std::endl;
+using std::fstream;
+using std::ifstream;
+using std::ios;
+using std::istream;
+using std::ofstream;
+using std::ostream;
+using std::setprecision;
+using std::setw;

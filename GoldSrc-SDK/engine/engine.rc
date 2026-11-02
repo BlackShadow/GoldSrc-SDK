@@ -1,0 +1,12 @@
+#include <windows.h>
+
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+
+1                       ICON    "res\engine.ico"
+111                     ICON    "..\launcher\hl.ico"
+112                     ICON    "res\engine_112.ico"
+
+STRINGTABLE
+BEGIN
+	1                   "valve Game Engine"
+END

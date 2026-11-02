@@ -1,0 +1,22 @@
+#ifndef VGUI_FRAMESIGNAL_H
+#define VGUI_FRAMESIGNAL_H
+
+#include "VGUI.h"
+
+namespace vgui
+{
+
+class Frame;
+
+class VGUIAPI FrameSignal
+{
+public:
+	virtual void closing( Frame* frame ) = 0;
+	virtual void minimizing( Frame* frame, bool toTray ) = 0;
+
+	FrameSignal& operator=( const FrameSignal& ) = default;
+};
+
+}
+
+#endif

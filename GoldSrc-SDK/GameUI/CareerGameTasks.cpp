@@ -1,0 +1,286 @@
+#include "CareerGameTasks.h"
+
+#include "../game_shared/shared_util.h"
+#include "vgui/ILocalize.h"
+#include "vgui_controls/Controls.h"
+
+#include <stdarg.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <wchar.h>
+
+#ifndef _WIN32
+#include <strings.h>
+#define stricmp strcasecmp
+#endif
+
+CCareerUITask::CCareerUITask( const char* taskName )
+{
+	strncpy( m_name, taskName, sizeof( m_name ) );
+	m_name[sizeof( m_name ) - 1] = 0;
+	m_repeat = 1;
+	m_survive = false;
+	m_inarow = false;
+	m_isWinFast = false;
+	m_name[0] = 0;
+	m_weapon[0] = 0;
+
+	const char* cursor = taskName;
+	while ( SharedTokenWaiting( cursor ) )
+	{
+		cursor = SharedParse( cursor );
+		const char* token = SharedGetToken();
+		if ( !token )
+			continue;
+
+		if ( !stricmp( token, "inarow" ) )
+		{
+			m_inarow = true;
+			m_survive = false;
+		}
+		else if ( !stricmp( token, "survive" ) )
+		{
+			m_survive = true;
+			m_inarow = false;
+		}
+		else
+		{
+			int repeat = atoi( token );
+			if ( repeat )
+			{
+				m_repeat = repeat;
+			}
+			else if ( !m_name[0] )
+			{
+				strncpy( m_name, token, sizeof( m_name ) );
+				m_name[sizeof( m_name ) - 1] = 0;
+			}
+			else if ( !m_weapon[0] )
+			{
+				strncpy( m_weapon, token, sizeof( m_weapon ) );
+				m_weapon[sizeof( m_weapon ) - 1] = 0;
+			}
+		}
+	}
+
+	if ( !stricmp( m_weapon, "grenade" ) && m_repeat > 1 )
+	{
+		strncpy( m_weapon, "hegren", sizeof( m_weapon ) );
+		m_weapon[sizeof( m_weapon ) - 1] = 0;
+	}
+	else if ( !stricmp( m_weapon, "hegren" ) && m_repeat == 1 )
+	{
+		strncpy( m_weapon, "grenade", sizeof( m_weapon ) );
+		m_weapon[sizeof( m_weapon ) - 1] = 0;
+	}
+
+	m_localizedName[0] = 0;
+	char taskId[144];
+	sprintf( taskId, "#Career_Weapon_%s", m_weapon );
+	const wchar_t* weaponName = vgui2::localize()->Find( taskId );
+	if ( !weaponName )
+		weaponName = L"";
+
+	wchar_t repeat[16];
+	swprintf( repeat, sizeof( repeat ) / sizeof( repeat[0] ), L"%d", m_repeat );
+	if ( m_repeat == 1 )
+		sprintf( taskId, "#Career_Task_%s", m_name );
+	else
+		sprintf( taskId, "#Career_Task_%s_multi", m_name );
+	if ( !stricmp( m_name, "winfast" ) )
+		m_isWinFast = true;
+
+	wchar_t taskText[512];
+	ConstructStringWithReordering( taskText, 512, vgui2::localize()->Find( taskId ), 2, weaponName, repeat );
+	if ( m_inarow )
+	{
+		vgui2::localize()->ConstructString( m_localizedName, 512,
+			vgui2::localize()->Find( "#Career_Task_inarow" ), 1, taskText );
+	}
+	else if ( m_survive )
+	{
+		vgui2::localize()->ConstructString( m_localizedName, 512,
+			vgui2::localize()->Find( "#Career_Task_survive" ), 1, taskText );
+	}
+	else
+	{
+		wcscpy( m_localizedName, taskText );
+	}
+	vgui2::localize()->ConstructString( m_localizedNameCompleted, sizeof( m_localizedNameCompleted ),
+		vgui2::localize()->Find( "#Career_Task_Done" ), 1, m_localizedName );
+	Reset();
+}
+
+bool CCareerUITask::IsComplete()
+{
+	return m_isComplete;
+}
+
+bool CCareerUITask::IsCompletedThisRound()
+{
+	return m_completedThisRound;
+}
+
+bool CCareerUITask::IsCompletedThisMatch()
+{
+	return m_isComplete;
+}
+
+const char* CCareerUITask::GetMap()
+{
+	return "";
+}
+
+const char* CCareerUITask::GetTaskName()
+{
+	return m_name;
+}
+
+const wchar_t* CCareerUITask::GetLocalizedTaskName()
+{
+	return m_localizedName;
+}
+
+const wchar_t* CCareerUITask::GetLocalizedTaskNameWithCompletion()
+{
+	return m_isComplete ? m_localizedNameCompleted : m_localizedName;
+}
+
+void CCareerUITask::Reset()
+{
+	m_completedThisRound = false;
+	m_isComplete = false;
+	m_partials = 0;
+}
+
+void CCareerUITask::Set( bool )
+{
+	m_completedThisRound = true;
+	m_isComplete = true;
+	m_partials = 0;
+}
+
+void CCareerUITask::StartRound()
+{
+	m_completedThisRound = false;
+}
+
+const char* CCareerUITask::GetWeaponName() const
+{
+	return m_weapon;
+}
+
+int CCareerUITask::GetRepeat() const
+{
+	return m_repeat;
+}
+
+bool CCareerUITask::MustSurvive() const
+{
+	return m_survive;
+}
+
+bool CCareerUITask::InARow() const
+{
+	return m_inarow;
+}
+
+int CCareerUITask::GetPartial() const
+{
+	return m_partials;
+}
+
+void CCareerUITask::SetPartial( int partial )
+{
+	m_partials = partial;
+}
+
+bool CCareerUITask::IsMaxRoundTime() const
+{
+	return m_isWinFast;
+}
+
+void ConstructStringWithReordering( wchar_t* output, int bufferSizeInBytes,
+	wchar_t* formatString, int numFormatParameters, ... )
+{
+	if ( !formatString )
+	{
+		output[0] = 0;
+		return;
+	}
+
+	int remaining = (unsigned int)bufferSizeInBytes / sizeof( wchar_t );
+	const wchar_t** parameters = new const wchar_t*[numFormatParameters];
+	va_list args;
+	va_start( args, numFormatParameters );
+	for ( int i = 0; i < numFormatParameters; ++i )
+		parameters[i] = va_arg( args, const wchar_t* );
+	va_end( args );
+	wchar_t* format = new wchar_t[wcslen( formatString ) + 1];
+	wcscpy( format, formatString );
+
+	wchar_t* cursor = format;
+	int ordered = 0;
+	while ( cursor && ordered < numFormatParameters )
+	{
+		cursor = wcsstr( cursor, L"%s" );
+		if ( !cursor )
+			break;
+		if ( cursor[2] < L'0' || cursor[2] > L'9' )
+			continue;
+
+		int index = cursor[2] - L'1';
+		if ( index < numFormatParameters )
+		{
+			const wchar_t* parameter = parameters[ordered];
+			parameters[ordered] = parameters[index];
+			parameters[index] = parameter;
+			wchar_t originalIndex = cursor[2];
+			cursor[2] = (wchar_t)( L'1' + ordered );
+			wchar_t search[4] = { L'%', L's', cursor[2], 0 };
+			wchar_t* repeated = wcsstr( cursor + 3, search );
+			if ( repeated )
+				repeated[2] = originalIndex;
+			++ordered;
+		}
+		cursor += 3;
+	}
+
+	const wchar_t* source = format;
+	wchar_t* dest = output;
+	for ( int i = 0; ; ++i )
+	{
+		char search[4] = { '%', 's', (char)( '1' + i ), 0 };
+		wchar_t unicodeSearch[4];
+		vgui2::localize()->ConvertANSIToUnicode( search, unicodeSearch, sizeof( unicodeSearch ) );
+		const wchar_t* found = wcsstr( source, unicodeSearch );
+		int count = found ? (int)( found - source ) : (int)wcslen( source ) + 1;
+		if ( count > remaining )
+			count = remaining;
+		wcsncpy( dest, source, count );
+		if ( !found )
+		{
+			dest[remaining - 1] = 0;
+			break;
+		}
+		dest += count;
+		source += count;
+		remaining -= count;
+		if ( i < numFormatParameters )
+		{
+			const wchar_t* parameter = parameters[i];
+			if ( !parameter )
+				break;
+			count = (int)wcslen( parameter );
+			if ( count > remaining )
+				count = remaining;
+			wcsncpy( dest, parameter, count );
+			dest += count;
+			source += 3;
+			remaining -= count;
+		}
+	}
+	delete[] format;
+	delete[] parameters;
+}

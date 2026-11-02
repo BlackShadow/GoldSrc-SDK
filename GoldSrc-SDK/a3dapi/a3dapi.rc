@@ -1,0 +1,31 @@
+LANGUAGE 0x09, 0x01
+
+1 VERSIONINFO
+FILEVERSION 2, 0, 2, 0
+PRODUCTVERSION 2, 0, 2, 0
+FILEFLAGSMASK 0x3fL
+FILEFLAGS 0x0L
+FILEOS 0x4L
+FILETYPE 0x2L
+FILESUBTYPE 0x0L
+BEGIN
+	BLOCK "StringFileInfo"
+	BEGIN
+		BLOCK "040904b0"
+		BEGIN
+			VALUE "CompanyName", L"Aureal Semiconductor\0"
+			VALUE "FileDescription", L"Aureal A3D API DLL\0"
+			VALUE "FileVersion", L"2.02\0"
+			VALUE "InternalName", L"A3DAPI\0"
+			VALUE "LegalCopyright", L"Copyright \x00a9 1996-1998 Aureal Semiconductor\0"
+			VALUE "LegalTrademarks", L"Aureal, A3D, A3D Interactive\0"
+			VALUE "OriginalFilename", L"a3dapi.dll\0"
+			VALUE "ProductName", L"A3D Interactive API DLL\0"
+			VALUE "ProductVersion", L"2.02\0"
+		END
+	END
+	BLOCK "VarFileInfo"
+	BEGIN
+		VALUE "Translation", 0x0409, 0x04b0
+	END
+END

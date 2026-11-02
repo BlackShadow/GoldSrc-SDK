@@ -1,0 +1,231 @@
+Package: vcpkg-cmake
+Version: 2025-08-07
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 94d0a57319704ec19734f8015499a4d42494cadfa1ee180cdf4d346909043a39
+Status: install ok installed
+
+Package: vcpkg-cmake-config
+Version: 2026-07-21
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 7fd458108f4fa90ba929d063bad15c1e36b2801d0bd775f3882616d2102ec9f0
+Status: install ok installed
+
+Package: brotli
+Version: 1.2.0
+Depends: vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows
+Architecture: x86-windows-static-md
+Multi-Arch: same
+Abi: 6f60f5fb4b99f715e7e6b4b13095596b3722adcc832f761b46cbf7b1e46840b9
+Description: a generic-purpose lossless compression algorithm that compresses data using a combination of a modern variant of the LZ77 algorithm, Huffman coding and 2nd order context modeling.
+Status: install ok installed
+
+Package: bzip2
+Version: 1.0.8
+Port-Version: 6
+Depends: vcpkg-cmake:x64-windows
+Architecture: x86-windows-static-md
+Multi-Arch: same
+Abi: 6c1ac91015c907d2490c2e7b95dce31174e2bcfeac08c4db55fec65374480757
+Description: bzip2 is a freely available, patent free, high-quality data compressor. It typically compresses files to within 10% to 15% of the best available techniques (the PPM family of statistical compressors), whilst being around twice as fast at compression and six times faster at decompression.
+Default-Features: tool
+Status: install ok installed
+
+Package: bzip2
+Feature: tool
+Architecture: x86-windows-static-md
+Multi-Arch: same
+Description: Builds bzip2 executable
+Status: install ok installed
+
+Package: dirent
+Version: 1.26
+Architecture: x86-windows-static-md
+Multi-Arch: same
+Abi: 742dc53801eb0260d3b45fe5cd07bb2bdbb86da527a61c9a7b75df588f3d11b1
+Description: Dirent is a C/C++ programming interface that allows programmers to retrieve information about files and directories under Linux/UNIX. This project provides Linux compatible Dirent interface for Microsoft Windows.
+Status: install ok installed
+
+Package: expat
+Version: 2.8.5
+Depends: vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows
+Architecture: x86-windows-static-md
+Multi-Arch: same
+Abi: d53987268faa2be2a0efd506cff9fe75b05e458ff1202c3fcf0721282bf5c16b
+Description: XML parser library written in C
+Status: install ok installed
+
+Package: zlib
+Version: 1.3.2
+Port-Version: 2
+Depends: vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows
+Architecture: x86-windows-static-md
+Multi-Arch: same
+Abi: 069b222daeb50e7f3b9d8b133d159e2ba2c2a336a23659fa3d73fefc99444c08
+Description: A compression library
+Status: install ok installed
+
+Package: libpng
+Version: 1.6.59
+Depends: vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows, zlib
+Architecture: x86-windows-static-md
+Multi-Arch: same
+Abi: 231e8284cdb1a592ffd937c9f21a8f6cd8bb71d7dac5806b75aff9f50082b040
+Description: libpng is a library implementing an interface for reading and writing PNG (Portable Network Graphics) format files
+Status: install ok installed
+
+Package: freetype
+Version: 2.14.3
+Depends: vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows
+Architecture: x86-windows-static-md
+Multi-Arch: same
+Abi: e882cf7302125cbb4e595f8ec967887fa75edd4d21c3f9a38373218712830b86
+Description: A library to render fonts.
+Default-Features: brotli, bzip2, png, zlib
+Status: install ok installed
+
+Package: freetype
+Feature: brotli
+Depends: brotli
+Architecture: x86-windows-static-md
+Multi-Arch: same
+Description: Support decompression of WOFF2 streams
+Status: install ok installed
+
+Package: freetype
+Feature: bzip2
+Depends: bzip2
+Architecture: x86-windows-static-md
+Multi-Arch: same
+Description: Support bzip2 compressed fonts.
+Status: install ok installed
+
+Package: freetype
+Feature: png
+Depends: libpng
+Architecture: x86-windows-static-md
+Multi-Arch: same
+Description: Support PNG compressed OpenType embedded bitmaps.
+Status: install ok installed
+
+Package: freetype
+Feature: zlib
+Depends: zlib
+Architecture: x86-windows-static-md
+Multi-Arch: same
+Description: Use zlib instead of internal library for DEFLATE
+Status: install ok installed
+
+Package: vcpkg-cmake-get-vars
+Version: 2025-05-29
+Depends: vcpkg-cmake
+Architecture: x64-windows
+Multi-Arch: same
+Abi: ef3ab5bc6b63323359060a8f001bbc8a9969ba25adfe87ec2cb3ae1bf8c867b2
+Status: install ok installed
+
+Package: vcpkg-make
+Version: 2026-07-09
+Port-Version: 1
+Depends: vcpkg-cmake-get-vars
+Architecture: x64-windows
+Multi-Arch: same
+Abi: c222c5c79ed61cb3d1c436969b433ecb14deb16b9cef06904611ec76713ab221
+Status: install ok installed
+
+Package: gperf
+Version: 3.3
+Port-Version: 1
+Depends: vcpkg-make
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 934b663657182e0dd9c47e7b3ba94ea1e038d249a37ebd511fbece94226a8f08
+Description: GNU perfect hash function generator
+Status: install ok installed
+
+Package: vcpkg-tool-meson
+Version: 1.9.0
+Port-Version: 10
+Depends: vcpkg-cmake-get-vars
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 9c23e2b2f90a740d16f3484fddd93d6c4cbb0f3b970686fef93f398bf942c687
+Description: Meson build system
+Status: install ok installed
+
+Package: fontconfig
+Version: 2.17.1
+Port-Version: 2
+Depends: dirent, expat, freetype, gperf:x64-windows, vcpkg-tool-meson:x64-windows
+Architecture: x86-windows-static-md
+Multi-Arch: same
+Abi: aaa554c1d047bc8c50675e5d60a8a4a6299890cb075a160c15e3f410826c14db
+Description: Library for configuring and customizing font access.
+Status: install ok installed
+
+Package: libogg
+Version: 1.3.6
+Port-Version: 1
+Depends: vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows
+Architecture: x86-windows-static-md
+Multi-Arch: same
+Abi: 5b051b1838f8e2bd8b083de882bb0b4f48fefaa7b3b6fd9dd44771d0a6944db7
+Description: Ogg is a multimedia container format, and the native file and stream format for the Xiph.org multimedia codecs.
+Status: install ok installed
+
+Package: libvorbis
+Version: 1.3.7
+Port-Version: 4
+Depends: libogg, vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows
+Architecture: x86-windows-static-md
+Multi-Arch: same
+Abi: 76db3402752b3617799410ed5f7db89d761dc265320b183f326353ddeada6801
+Description: Ogg Vorbis is a fully open, non-proprietary, patent-and-royalty-free, general-purpose compressed audio format
+Status: install ok installed
+
+Package: pkgconf
+Version: 3.0.3
+Port-Version: 1
+Depends: vcpkg-tool-meson
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 36030d5667e57c504245481c5adae6fc692e92ef2f6cbd5c4a23a848fc98bd6c
+Description: pkgconf is a program which helps to configure compiler and linker flags for development libraries. It is similar to pkg-config from freedesktop.org.
+Status: install ok installed
+
+Package: vcpkg-pkgconfig-get-modules
+Version: 2024-04-03
+Depends: pkgconf
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 8c10a8a916fe6520fb0d47623a83a110efb446838aff417ad6c54415a61f8e0a
+Status: install ok installed
+
+Package: vcpkg-msbuild
+Version: 2023-08-08
+Depends: vcpkg-cmake-get-vars, vcpkg-pkgconfig-get-modules
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 3da1161e7cfd8a8b0858ed077b389cbd13a02a977f045943e26ce33e5d3e316b
+Status: install ok installed
+
+Package: libvpx
+Version: 1.16.0
+Port-Version: 3
+Depends: vcpkg-cmake-get-vars:x64-windows, vcpkg-msbuild:x64-windows
+Architecture: x86-windows-static-md
+Multi-Arch: same
+Abi: 1f7bcdf5ab27083a02a21919912b2ae0a00b69e7eb8594fac4f80b61aa6d06b3
+Description: The reference software implementation for the video coding formats VP8 and VP9.
+Status: install ok installed
+
+Package: libwebm
+Version: 1.0.0.32
+Depends: vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows
+Architecture: x86-windows-static-md
+Multi-Arch: same
+Abi: bdec6948747e9a3059199603cdf0d3d8904768cdc3ee3bce90edf466e97410c5
+Description: WebM File Parser
+Status: install ok installed
+

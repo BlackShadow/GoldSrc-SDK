@@ -1,0 +1,72 @@
+#include <windows.h>
+
+#define IDD_ASSERT				101
+#define IDC_ASSERT_FILE			1000
+#define IDC_ASSERT_LINE			1001
+#define IDC_IGNORE_FILE			1002
+#define IDC_IGNORE_NEARBY		1003
+#define IDC_IGNORE_RANGE		1004
+#define IDC_IGNORE_TIMES		1005
+#define IDC_BREAK				1006
+#define IDC_IGNORE_ALL			1008
+#define IDC_IGNORE_ALWAYS		1009
+#define IDC_IGNORE_COUNT		1010
+#define IDC_ASSERT_EXPRESSION	1011
+
+#ifndef IDC_STATIC
+#define IDC_STATIC				-1
+#endif
+
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+
+IDD_ASSERT DIALOG 0, 0, 268, 158
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Assert"
+FONT 8, "MS Sans Serif"
+BEGIN
+	LTEXT			"File:", IDC_STATIC, 7, 7, 23, 9
+	LTEXT			"c:/hl2/src/blah.cpp", IDC_ASSERT_FILE, 36, 7, 217, 8
+	LTEXT			"Line:", IDC_STATIC, 7, 18, 23, 9
+	LTEXT			"45", IDC_ASSERT_LINE, 36, 18, 217, 8
+	LTEXT			"Assert:", IDC_STATIC, 7, 29, 23, 9
+	LTEXT			"ASSERT MESSAGE", IDC_ASSERT_EXPRESSION, 36, 29, 217, 9, SS_LEFTNOWORDWRAP
+	DEFPUSHBUTTON	"&Break in Debugger", IDC_BREAK, 7, 49, 98, 14
+	PUSHBUTTON		"&Ignore This Assert", IDC_IGNORE_TIMES, 7, 66, 98, 14
+	EDITTEXT		IDC_IGNORE_COUNT, 110, 66, 24, 14, ES_AUTOHSCROLL | ES_NUMBER
+	LTEXT			"time(s).", IDC_STATIC, 138, 68, 23, 8
+	PUSHBUTTON		"Always Ignore &This Assert", IDC_IGNORE_ALWAYS, 7, 84, 98, 14
+	PUSHBUTTON		"Ignore &Nearby Asserts", IDC_IGNORE_NEARBY, 7, 102, 98, 14
+	LTEXT			"within", IDC_STATIC, 109, 105, 19, 8
+	EDITTEXT		IDC_IGNORE_RANGE, 131, 102, 40, 14, ES_AUTOHSCROLL | ES_NUMBER
+	LTEXT			"lines.", IDC_STATIC, 175, 105, 17, 8
+	PUSHBUTTON		"Ignore Asserts in This &File", IDC_IGNORE_FILE, 7, 120, 98, 14
+	PUSHBUTTON		"Ignore &All Asserts", IDC_IGNORE_ALL, 7, 137, 98, 14
+END
+
+VS_VERSION_INFO VERSIONINFO
+	FILEVERSION 1,0,0,1
+	PRODUCTVERSION 1,0,0,1
+	FILEFLAGSMASK 0x17L
+	FILEFLAGS 0x0L
+	FILEOS 0x4L
+	FILETYPE 0x2L
+	FILESUBTYPE 0x0L
+BEGIN
+	BLOCK "StringFileInfo"
+	BEGIN
+		BLOCK "040904b0"
+		BEGIN
+			VALUE "FileDescription", "tier0_s Dynamic Link Library"
+			VALUE "FileVersion", "1, 0, 0, 1"
+			VALUE "InternalName", "tier0_s"
+			VALUE "LegalCopyright", "Copyright (C) 2005"
+			VALUE "OriginalFilename", "tier0_s.dll"
+			VALUE "ProductName", " tier0_s Dynamic Link Library"
+			VALUE "ProductVersion", "1, 0, 0, 1"
+		END
+	END
+	BLOCK "VarFileInfo"
+	BEGIN
+		VALUE "Translation", 0x409, 1200
+	END
+END

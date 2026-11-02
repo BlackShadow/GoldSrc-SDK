@@ -1,0 +1,123 @@
+#ifndef HAMMER34_AFXRES_RC
+#define HAMMER34_AFXRES_RC
+
+#include <afxres.h>
+
+#ifndef _AFXDLL
+
+STRINGTABLE DISCARDABLE
+BEGIN
+	AFX_IDS_OPENFILE "Open"
+	AFX_IDS_SAVEFILE "Save As"
+	AFX_IDS_ALLFILTER "All Files (*.*)"
+	AFX_IDS_UNTITLED "Untitled"
+	AFX_IDS_UNNAMED_FILE "an unnamed file"
+	AFX_IDS_HIDE "&Hide"
+
+	AFX_IDP_NO_ERROR_AVAILABLE "No error message is available."
+	AFX_IDS_NOT_SUPPORTED_EXCEPTION "An unsupported operation was attempted."
+	AFX_IDS_RESOURCE_EXCEPTION "A required resource was unavailable."
+	AFX_IDS_MEMORY_EXCEPTION "Out of memory."
+	AFX_IDS_USER_EXCEPTION "An unknown error has occurred."
+
+	AFX_IDP_INVALID_FILENAME "Invalid filename."
+	AFX_IDP_FAILED_TO_OPEN_DOC "Failed to open document."
+	AFX_IDP_FAILED_TO_SAVE_DOC "Failed to save document."
+	AFX_IDP_ASK_TO_SAVE "Save changes to %1?"
+	AFX_IDP_FAILED_TO_CREATE_DOC "Failed to create empty document."
+	AFX_IDP_FILE_TOO_LARGE "The file is too large to open."
+	AFX_IDP_FAILED_TO_START_PRINT "Could not start print job."
+	AFX_IDP_FAILED_TO_LAUNCH_HELP "Failed to launch help."
+	AFX_IDP_INTERNAL_FAILURE "Internal application error."
+	AFX_IDP_COMMAND_FAILURE "Command failed."
+	AFX_IDP_FAILED_MEMORY_ALLOC "Insufficient memory to perform operation."
+	AFX_IDP_UNREG_DONE "System registry entries have been removed and the INI file (if any) was deleted."
+	AFX_IDP_UNREG_FAILURE "Not all of the system registry entries (or INI file) were removed."
+	AFX_IDP_DLL_LOAD_FAILED "This program requires the file %s, which was not found on this system."
+	AFX_IDP_DLL_BAD_VERSION "This program is linked to the missing export %s in the file %s. This machine may have an incompatible version of %s."
+
+	AFX_IDP_PARSE_INT "Please enter an integer."
+	AFX_IDP_PARSE_REAL "Please enter a number."
+	AFX_IDP_PARSE_INT_RANGE "Please enter an integer between %1 and %2."
+	AFX_IDP_PARSE_REAL_RANGE "Please enter a number between %1 and %2."
+	AFX_IDP_PARSE_STRING_SIZE "Please enter no more than %1 characters."
+	AFX_IDP_PARSE_RADIO_BUTTON "Please select a button."
+	AFX_IDP_PARSE_BYTE "Please enter an integer between 0 and 255."
+	AFX_IDP_PARSE_UINT "Please enter a positive integer."
+	AFX_IDP_PARSE_DATETIME "Please enter a date and/or time."
+	AFX_IDP_PARSE_CURRENCY "Please enter a currency."
+
+	AFX_IDP_FAILED_INVALID_FORMAT "Unexpected file format."
+	AFX_IDP_FAILED_INVALID_PATH "%1\nCannot find this file.\nPlease verify that the correct path and file name are given."
+	AFX_IDP_FAILED_DISK_FULL "Destination disk drive is full."
+	AFX_IDP_FAILED_ACCESS_READ "Unable to read from %1, it is opened by someone else."
+	AFX_IDP_FAILED_ACCESS_WRITE "Unable to write to %1, it is read-only or opened by someone else."
+	AFX_IDP_FAILED_IO_ERROR_READ "An unexpected error occurred while reading %1."
+	AFX_IDP_FAILED_IO_ERROR_WRITE "An unexpected error occurred while writing %1."
+
+	AFX_IDP_GET_NOT_SUPPORTED "Unable to read write-only property."
+	AFX_IDP_SET_NOT_SUPPORTED "Unable to write read-only property."
+
+	AFX_IDP_FAILED_MAPI_LOAD "Unable to load mail system support."
+	AFX_IDP_INVALID_MAPI_DLL "Mail system DLL is invalid."
+	AFX_IDP_FAILED_MAPI_SEND "Send Mail failed to send message."
+
+	AFX_IDP_FILE_NONE "No error occurred."
+	AFX_IDP_FILE_GENERIC "An unknown error occurred while accessing %1."
+	AFX_IDP_FILE_NOT_FOUND "%1 was not found."
+	AFX_IDP_FILE_BAD_PATH "%1 contains an invalid path."
+	AFX_IDP_FILE_TOO_MANY_OPEN "%1 could not be opened because there are too many open files."
+	AFX_IDP_FILE_ACCESS_DENIED "Access to %1 was denied."
+	AFX_IDP_FILE_INVALID_FILE "An invalid file handle was associated with %1."
+	AFX_IDP_FILE_REMOVE_CURRENT "%1 could not be removed because it is the current directory."
+	AFX_IDP_FILE_DIR_FULL "%1 could not be created because the directory is full."
+	AFX_IDP_FILE_BAD_SEEK "Seek failed on %1"
+	AFX_IDP_FILE_HARD_IO "A hardware I/O error was reported while accessing %1."
+	AFX_IDP_FILE_SHARING "A sharing violation occurred while accessing %1."
+	AFX_IDP_FILE_LOCKING "A locking violation occurred while accessing %1."
+	AFX_IDP_FILE_DISKFULL "Disk full while accessing %1."
+	AFX_IDP_FILE_EOF "An attempt was made to access %1 past its end."
+
+	AFX_IDP_ARCH_NONE "No error occurred."
+	AFX_IDP_ARCH_GENERIC "An unknown error occurred while accessing %1."
+	AFX_IDP_ARCH_READONLY "An attempt was made to write to the reading %1."
+	AFX_IDP_ARCH_ENDOFFILE "An attempt was made to access %1 past its end."
+	AFX_IDP_ARCH_WRITEONLY "An attempt was made to read from the writing %1."
+	AFX_IDP_ARCH_BADINDEX "%1 has a bad format."
+	AFX_IDP_ARCH_BADCLASS "%1 contained an unexpected object."
+	AFX_IDP_ARCH_BADSCHEMA "%1 contains an incorrect schema."
+
+	AFX_IDS_OCC_SCALEUNITS_PIXELS "pixels"
+END
+
+#ifndef _AFX_INTL_RESOURCES
+AFX_IDC_CONTEXTHELP CURSOR DISCARDABLE "res\\help.cur"
+AFX_IDC_SMALLARROWS CURSOR DISCARDABLE "res\\sarrows.cur"
+AFX_IDC_HSPLITBAR CURSOR DISCARDABLE "res\\splith.cur"
+AFX_IDC_VSPLITBAR CURSOR DISCARDABLE "res\\splitv.cur"
+AFX_IDC_NODROPCRSR CURSOR DISCARDABLE "res\\nodrop.cur"
+#endif
+
+AFX_IDD_NEWTYPEDLG DIALOG DISCARDABLE 9, 26, 183, 70
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU | 0x04
+CAPTION "New"
+FONT 8, "MS Shell Dlg"
+BEGIN
+	LTEXT "&New ", IDC_STATIC, 6, 5, 123, 8, NOT WS_GROUP
+	LISTBOX AFX_IDC_LISTBOX, 6, 15, 125, 49, WS_VSCROLL | WS_TABSTOP
+	DEFPUSHBUTTON "OK", IDOK, 137, 6, 40, 14
+	PUSHBUTTON "Cancel", IDCANCEL, 137, 23, 40, 14
+	PUSHBUTTON "&Help", ID_HELP, 137, 43, 40, 14
+END
+
+#ifndef _AFX_INTL_RESOURCES
+26567 BITMAP DISCARDABLE "res\\hammer34_ctl3d.bmp"
+
+AFX_IDB_MINIFRAME_MENU BITMAP DISCARDABLE "res\\minifwnd.bmp"
+
+30995 BITMAP DISCARDABLE "res\\hammer34_ntcheck.bmp"
+AFX_IDB_CHECKLISTBOX_95 BITMAP DISCARDABLE "res\\95check.bmp"
+#endif
+
+#endif
+#endif

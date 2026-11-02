@@ -125,7 +125,9 @@
     <ClCompile Include="..\..\GameUI\labelslidercombo.cpp" />
     <ClCompile Include="..\..\GameUI\LoadGameDialog.cpp" />
     <ClCompile Include="..\..\GameUI\LoadingDialog.cpp" />
-    <ClCompile Include="..\..\GameUI\LogoFile.cpp" />
+    <ClCompile Include="..\..\GameUI\LogoFile.cpp">
+      <InlineFunctionExpansion Condition="'$(Configuration)'=='Debug'">OnlyExplicitInline</InlineFunctionExpansion>
+    </ClCompile>
     <ClCompile Include="..\..\GameUI\ModInfo.cpp" />
     <ClCompile Include="..\..\GameUI\MultiplayerAdvancedDialog.cpp" />
     <ClCompile Include="..\..\GameUI\MusicManager.cpp" />
@@ -133,9 +135,13 @@
     <ClCompile Include="..\..\GameUI\OptionsDialog.cpp" />
     <ClCompile Include="..\..\GameUI\OptionsSubAdvanced.cpp" />
     <ClCompile Include="..\..\GameUI\OptionsSubAudio.cpp" />
-    <ClCompile Include="..\..\GameUI\OptionsSubKeyboard.cpp" />
+    <ClCompile Include="..\..\GameUI\OptionsSubKeyboard.cpp">
+      <InlineFunctionExpansion Condition="'$(Configuration)'=='Debug'">OnlyExplicitInline</InlineFunctionExpansion>
+    </ClCompile>
     <ClCompile Include="..\..\GameUI\OptionsSubMouse.cpp" />
-    <ClCompile Include="..\..\GameUI\OptionsSubMultiplayer.cpp" />
+    <ClCompile Include="..\..\GameUI\OptionsSubMultiplayer.cpp">
+      <InlineFunctionExpansion Condition="'$(Configuration)'=='Debug'">OnlyExplicitInline</InlineFunctionExpansion>
+    </ClCompile>
     <ClCompile Include="..\..\GameUI\OptionsSubVideo.cpp" />
     <ClCompile Include="..\..\GameUI\OptionsSubVoice.cpp" />
     <ClCompile Include="..\..\GameUI\PanelListPanel.cpp" />

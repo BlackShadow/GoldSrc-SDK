@@ -64,12 +64,6 @@ msbuild projects\vs2026\utils.sln /m /p:Configuration=Release /p:Platform=Win32
 
 Use `/p:Configuration=Debug` for a debug build.
 
-### Checkout notes
-
-The main solution currently references the `swds` project at `../RE/swds.vcxproj`, relative to the repository root. That sibling project is absent from this checkout, although a built `swds.dll` is present in the Release output. Restore the project at that location or update its solution entry before building the complete solution.
-
-Hammer's source is included under `worldcraft/`, with the legacy [`worldcraft.dsp`](worldcraft/worldcraft.dsp) project. It is separate from the two VS2026 solutions above; those commands do not build the editor.
-
 ## Build output
 
 Runtime and game binaries are placed under:
@@ -94,25 +88,6 @@ SDK utility executables are placed in the corresponding `utils/` subdirectory. I
 | Shared runtime and UI | `tier0.dll`, `vgui.dll`, `vgui2.dll` |
 | Game UI and effects | `valve/cl_dlls/GameUI.dll`, `valve/cl_dlls/particleman.dll` |
 | Game client/server DLLs | The game directories listed above, under `cl_dlls/` and `dlls/` |
-
-## Running
-
-The build produces executables and libraries. Maps, textures, models, sounds, game configuration files, and required runtime dependencies must also be available in the runtime directory. Use the matching game installation's data with the built binaries.
-
-From a prepared runtime directory, select a game with `-game`:
-
-```bat
-hl.exe -game valve
-hl.exe -game bshift
-hl.exe -game gearbox
-hl.exe -game cstrike
-```
-
-The same directory names apply to the other included games. For a Half-Life dedicated server:
-
-```bat
-hlds.exe -console -game valve +map crossfire
-```
 
 ## Source layout
 

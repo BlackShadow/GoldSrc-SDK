@@ -17,6 +17,7 @@ GoldSrc-SDK brings together the Half-Life 25th Anniversary engine code, game cli
 - **Game code:** client and server projects for the games listed below.
 - **Servers and broadcasting:** Half-Life Dedicated Server, the dedicated engine, HLTV, and demo playback components.
 - **Runtime libraries:** the filesystem, Tier0, VGUI, VGUI2, GameUI, and particle manager.
+- **A3D audio API:** 3D audio interfaces and implementation, built as `a3dapi.dll`.
 - **Hammer 3.4:** editor source in [`worldcraft/`](worldcraft/).
 - **SDK utilities:** map compilation, model compilation and viewing, sprite generation, WAD tools, and other development utilities.
 
@@ -83,6 +84,7 @@ SDK utility executables are placed in the corresponding `utils/` subdirectory. I
 | Hardware-rendered engine | `hw.dll` |
 | Software-rendered engine | `sw.dll` |
 | Dedicated server engine | `swds.dll` |
+| A3D audio API | `a3dapi.dll` |
 | HLTV and demo support | `Core.dll`, `DemoPlayer.dll`, `proxy.dll` |
 | Filesystem | `filesystem_stdio.dll` |
 | Shared runtime and UI | `tier0.dll`, `vgui.dll`, `vgui2.dll` |
@@ -94,6 +96,7 @@ SDK utility executables are placed in the corresponding `utils/` subdirectory. I
 | Path | Contents |
 | --- | --- |
 | [`engine/`](engine/) | Engine implementation |
+| [`a3dapi/`](a3dapi/) | A3D audio API implementation |
 | [`launcher/`](launcher/) | Game launcher |
 | [`dedicated/`](dedicated/) | Dedicated server launcher |
 | [`HLTV/`](HLTV/) | HLTV, proxy, core, and demo playback code |

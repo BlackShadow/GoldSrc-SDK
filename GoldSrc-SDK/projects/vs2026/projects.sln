@@ -71,7 +71,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HLTV", "HLTV.vcxproj", "{5C
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hlds", "hlds.vcxproj", "{8F53BA80-57D6-442A-B281-01B7E3977AD5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "swds", "..\..\..\RE\swds.vcxproj", "{09E1650D-DAD7-435E-BA7D-62D1A99B242A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "swds", "..\..\swds\swds.vcxproj", "{09E1650D-DAD7-435E-BA7D-62D1A99B242A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "a3dapi", "a3dapi.vcxproj", "{6B2F2566-A369-4F90-92C2-8F509E494F0F}"
 EndProject

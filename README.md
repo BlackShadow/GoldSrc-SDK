@@ -99,6 +99,7 @@ The project files are in [`GoldSrc-SDK/`](GoldSrc-SDK/). Paths below are relativ
 | Path | Contents |
 | --- | --- |
 | [`engine/`](GoldSrc-SDK/engine/) | Engine implementation |
+| [`swds/`](GoldSrc-SDK/swds/) | Dedicated server engine project and platform support sources; shares engine code from `engine/` |
 | [`a3dapi/`](GoldSrc-SDK/a3dapi/) | A3D audio API implementation |
 | [`launcher/`](GoldSrc-SDK/launcher/) | Game launcher |
 | [`dedicated/`](GoldSrc-SDK/dedicated/) | Dedicated server launcher |

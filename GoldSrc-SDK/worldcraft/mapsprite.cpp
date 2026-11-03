@@ -750,6 +750,10 @@ void CMapSprite::SpriteColor( unsigned char* pColor, int eRenderMode, colorVec R
 		pColor[1] = ( (int)RenderColor.g * a ) >> 8;
 		pColor[2] = ( (int)RenderColor.b * a ) >> 8;
 	}
+
+	// Callers pass this to glColor4ubv; with GL_MODULATE the alpha scales the
+	// texture alpha used by blending and alpha test in CSpriteModel::Bind.
+	pColor[3] = 255;
 }
 
 //-----------------------------------------------------------------------------

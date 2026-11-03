@@ -1,4 +1,4 @@
-//========= Copyright © 1996-2001, Valve LLC, All rights reserved. ============
+//========= Copyright Â© 1996-2001, Valve LLC, All rights reserved. ============
 //
 // Purpose: 
 //
@@ -751,8 +751,6 @@ void CMapSprite::SpriteColor( unsigned char* pColor, int eRenderMode, colorVec R
 		pColor[2] = ( (int)RenderColor.b * a ) >> 8;
 	}
 
-	// Callers pass this to glColor4ubv; with GL_MODULATE the alpha scales the
-	// texture alpha used by blending and alpha test in CSpriteModel::Bind.
 	pColor[3] = 255;
 }
 

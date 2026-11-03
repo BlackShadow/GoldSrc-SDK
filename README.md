@@ -18,7 +18,7 @@ GoldSrc-SDK brings together the Half-Life 25th Anniversary engine code, game cli
 - **Servers and broadcasting:** Half-Life Dedicated Server, the dedicated engine, HLTV, and demo playback components.
 - **Runtime libraries:** the filesystem, Tier0, VGUI, VGUI2, GameUI, and particle manager.
 - **A3D audio API:** 3D audio interfaces and implementation, built as `a3dapi.dll`.
-- **Hammer 3.4:** editor source in [`worldcraft/`](GoldSrc-SDK/worldcraft/).
+- **Hammer 3.4:** editor source.
 - **SDK utilities:** map compilation, model compilation and viewing, sprite generation, WAD tools, and other development utilities.
 
 ## Included games

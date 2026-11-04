@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/goldsrc-sdk.png" alt="GoldSrc-SDK" width="420">
+  <img src="media/goldsrc-sdk.png" alt="GoldSrc-SDK" width="1000">
 </p>
 
 <h1 align="center">GoldSrc-SDK</h1>
